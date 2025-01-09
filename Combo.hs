@@ -15,22 +15,25 @@ type Var
 
 data Val
   = Var Var
+  | Not Var
   | TRUE
   | FALSE
  deriving ( Ord, Eq, Show )
 
+neg :: Val -> Val
+neg (Var x) = Not x
+neg (Not x) = Var x
+neg FALSE   = TRUE
+neg TRUE    = FALSE
+
 -- Gate -----------------------------------------------------------------------------
 
 data Gate
-  = And Val Val
-  | Not Val
-  | Con Val
+  = And [Val]
  deriving ( Ord, Eq, Show )
 
 fvs :: Gate -> Set Var
-fvs (And x y) = S.fromList [ v | Var v <- [x,y] ]
-fvs (Not x)   = S.fromList [ v | Var v <- [x] ]
-fvs (Con x)   = S.fromList [ v | Var v <- [x] ]
+fvs (And xs) = S.fromList ([ v | Var v <- xs ] ++ [ v | Not v <- xs ])
 
 eval :: Map Var Bool -> Gate -> Maybe Bool
 eval mp g = gate g
@@ -38,22 +41,12 @@ eval mp g = gate g
   is b TRUE    = b
   is b FALSE   = not b
   is b (Var x) = M.lookup x mp == Just b
+  is b (Not x) = M.lookup x mp == Just (not b)
 
-  gate (And x y)
-    | is False x             = Just False
-    | is False y             = Just False
-    | is True x && is True y = Just True
-    | otherwise              = Nothing
-
-  gate (Not x)
-    | is False x = Just True
-    | is True  x = Just False
-    | otherwise  = Nothing
-
-  gate (Con x)
-    | is False x = Just False
-    | is True  x = Just True
-    | otherwise  = Nothing
+  gate (And xs)
+    | any (is False) xs = Just False
+    | all (is True)  xs = Just True
+    | otherwise         = Nothing
 
 -- Circuit --------------------------------------------------------------------------
 
@@ -73,12 +66,11 @@ printC inps outs c = putStr $ unlines $
   shV x = "v" ++ show x
  
   showV seen (Var x) = (if x `S.member` seen then id else mark) (shV x)
+  showV seen (Not x) = "~" ++ showV seen (Var x)
   showV _    FALSE   = "FALSE"
   showV _    TRUE    = "TRUE"
   
-  showG seen (And x y) = showV seen x ++ " & " ++ showV seen y
-  showG seen (Not x)   = "~" ++ showV seen x
-  showG seen (Con x)   = showV seen x
+  showG seen (And xs) = concat (intersperse " & " (map (showV seen) xs))
 
   defs seen [] = []
   defs seen ((x,g):c) =
@@ -124,12 +116,15 @@ order outs c = fst (go S.empty S.empty outs)
           (ds2, seen2) = go busy (S.insert x seen1) xs
 
 -- simplify a circuit by repeatedly doing constant propagation and garbage collection
-simp :: [Var] -> Circuit -> Circuit
-simp outs c
+simp' :: Int -> [Var] -> Circuit -> Circuit
+simp' 0 _ _ = error "simp loops"
+simp' k outs c
   | c == c'   = c
-  | otherwise = simp outs c'
+  | otherwise = simp' (k-1) outs c'
  where
   c' = order outs (prop c)
+
+simp = simp' 999
 
 -- perform constant propagation
 prop :: Circuit -> Circuit
@@ -140,33 +135,33 @@ prop c = go M.empty M.empty c
 
   go vmp gmp ((x,g):c) =
     case gate vmp g of
-      And FALSE _    -> go1 FALSE
-      And _    FALSE -> go1 FALSE
-      And TRUE  y    -> go1 y
-      And y     TRUE -> go1 y
-      And p q | p==q -> go1 p
-      Not FALSE      -> go1 TRUE
-      Not TRUE       -> go1 FALSE
-      Con v          -> go1 v
-      g' ->
+      And []               -> go1 TRUE
+      And [y] | y /= Not x -> go1 y
+      g'                   ->
         case M.lookup g' gmp of
           Just y  -> go1 (Var y)
           Nothing -> (x,g') : go vmp (M.insert g' x gmp) c
    where
-    go1 v = (x,Con v) : go (M.insert x v vmp) gmp c
+    go1 v = (x,And [v]) : go (M.insert x v vmp) gmp c
 
-  gate vmp (And x y)
-    | x' <= y'  = And x' y'
-    | otherwise = And y' x'
+  gate vmp (And xs) = And (go S.empty (map (`look` vmp) xs))
    where
-    (x',y') = (look x vmp, look y vmp)
-  gate vmp (Not x) = Not (look x vmp)
-  gate vmp (Con x) = Con (look x vmp)
+    go zs []                = S.toList zs
+    go zs (FALSE : _)       = [FALSE]
+    go zs (TRUE : xs)       = go zs xs
+    go zs (x : xs)
+      | x     `S.member` zs = go zs xs
+      | neg x `S.member` zs = [FALSE]
+      | otherwise           = go (S.insert x zs) xs
 
   look (Var x) vmp =
     case M.lookup x vmp of
       Nothing -> Var x
       Just v  -> v
+  look (Not x) vmp =
+    case M.lookup x vmp of
+      Nothing -> Not x
+      Just v  -> neg v
   look v vmp       = v
 
 -- Combinational Loops ---------------------------------------------------------------
@@ -195,7 +190,7 @@ dloop c =
     | otherwise          = (x,g) : expand y c
 
   copy y c =
-    [ (pr y, Con FALSE) ]
+    [ (pr y, And [FALSE]) ]
     ++
     [ (pr z, prgate g)
     | (z,g) <- c1
@@ -222,11 +217,10 @@ dloop c =
              Nothing -> x
              Just x' -> x'
 
-    prgate (And x y) = And (prval x) (prval y)
-    prgate (Not x)   = Not (prval x)
-    prgate (Con x)   = Con (prval x)
+    prgate (And xs) = And (map prval xs)
 
     prval (Var x) = Var (pr x)
+    prval (Not x) = Not (pr x)
     prval v       = v
 
 -- find and remove combinational loops, and simplify, until all are gone
@@ -296,37 +290,35 @@ c=0: x-->20, 21-->10, 11-->4
 -}
 
 fg :: Circuit
-fg = [ (11, Not (Var 10))
-     , (21, And (Var 20) (Var 3))
+fg = [ (11, And [Not 10])
+     , (21, And [Var 20, Var 3])
      ]
      ++ iff 10 (Var 2) (Var 1)  (Var 21) 100
      ++ iff 20 (Var 2) (Var 11) (Var 1)  200
      ++ iff  4 (Var 2) (Var 21) (Var 11) 300
  where
   iff s c a b k =
-    [ (s, Con (Var k))
-    , (k, And (Var (k+1)) (Var (k+2)))
-    , (k+1, Not (Var (k+3)))
-    , (k+2, Not (Var (k+4)))
-    , (k+3, And c a)
-    , (k+4, And (Var (k+5)) b)
-    , (k+5, Not c)
+    [ (s, And [Not k, Not (k+1)])
+    , (k, And [c,a])
+    , (k+1, And [neg c, b])
     ]
 
 ins = [1,2,3]
 ots = [4]
 
-main :: IO ()
-main =
+main1 :: IO ()
+main1 =
   do printC ins ots fg
      putStrLn "==SORT==>"
      let c' = order ots fg
      printC ins ots c'
-     dloopsIO ins ots c'
+     putStrLn "==SIMP==>"
+     let c2 = simp ots fg
+     printC ins ots c2
+     dloopsIO ins ots c2
      return ()
 
-
---main = quickCheckWith stdArgs{ maxSuccess = 999999 } prop_Correct
+main = quickCheckWith stdArgs{ maxSuccess = 999999 } prop_Correct
 
 -- aux ------------------------------------------------------------------------
 
@@ -350,11 +342,8 @@ instance Arbitrary Circ where
     do i  <- choose (1,10)
        bs <- sequence [ arbitrary | _ <- [1..i] ]
        k  <- choose (i,100)
-       let val  = liftM Var (choose (1,k))
-           gate = frequency [ (10, liftM2 And val val)
-                            , (2,  liftM Not val)
-                            , (1,  liftM Con val)
-                            ] 
+       let val  = oneof [liftM Var (choose (1,k)), liftM Not (choose (1,k))]
+           gate = liftM And (listOf val) 
        c  <- sequence [ do g <- gate; return (x,g) | x <- [i+1..k] ]
        js <- sequence [ choose (False,True) | _ <- [1..k] ]
        return (Circ [1..i] bs [j | (j,True) <- [1..k] `zip` js] c)
@@ -372,30 +361,22 @@ instance Arbitrary Circ where
     | (_,i) <- netl `zip` [0..]
     ]
     ++
-    [ Circ inps vals outs (take i netl ++ [(x,Con y)] ++ drop (i+1) netl)
-    | ((x,And y z),i) <- netl `zip` [0..]
-    ]
-    ++
-    [ Circ inps vals outs (take i netl ++ [(x,Con z)] ++ drop (i+1) netl)
-    | ((x,And y z),i) <- netl `zip` [0..]
-    ]
-    ++
-    [ Circ inps vals outs (take i netl ++ [(x,Con z)] ++ drop (i+1) netl)
-    | ((x,Not z),i) <- netl `zip` [0..]
+    [ Circ inps vals outs (take i netl ++ [(x,And (take j xs ++ drop (j+1) xs))] ++ drop (i+1) netl)
+    | ((x,And xs),i) <- netl `zip` [0..]
+    , (_,j) <- xs `zip` [0..]
     ]
     ++
     [ Circ inps vals outs (map sub (take i netl) ++ map sub (drop (i+1) netl))
-    | ((x,Con y),i) <- netl `zip` [0..]
-    , let sub (z, And p q) = (z, And (subv p) (subv q))
-          sub (z, Not p)   = (z, Not (subv p))
-          sub (z, Con p)   = (z, Con (subv p))
+    | ((x,And [y]),i) <- netl `zip` [0..]
+    , let sub (z, And ps) = (z, And (map subv ps))
 
           subv (Var z) | x == z = y
+          subv (Not z) | x == z = neg y
           subv v                = v
     ]
 
 prop_Correct circ =
-  let inp  = [ (i, Con (if b then TRUE else FALSE))
+  let inp  = [ (i, And [if b then TRUE else FALSE])
              | (i,b) <- inps circ `zip` vals circ
              ]
       out1 = sim3 (inp ++ netl circ)
