@@ -5,6 +5,7 @@ import Data.Map( Map )
 import qualified Data.Set as S
 import Data.Set( Set )
 import Control.Monad
+import Data.List( intersperse )
 import Test.QuickCheck
 
 -- Var & Val ------------------------------------------------------------------------
@@ -58,6 +59,35 @@ eval mp g = gate g
 
 type Circuit = [(Var,Gate)]
 
+printC :: [Var] -> [Var] -> Circuit -> IO ()
+printC inps outs c = putStr $ unlines $
+  [ "[" ++ concat (intersperse ", " [ shV i | i <- inps ]) ++ "] -->"
+  , "(" ++ show (length c) ++ " gates)"
+  ]
+  ++
+  defs (S.fromList inps) c
+  ++
+  [ "--> [" ++ concat (intersperse ", " [ shV i | i <- outs ]) ++ "]"
+  ]
+ where
+  shV x = "v" ++ show x
+ 
+  showV seen (Var x) = (if x `S.member` seen then id else mark) (shV x)
+  showV _    FALSE   = "FALSE"
+  showV _    TRUE    = "TRUE"
+  
+  showG seen (And x y) = showV seen x ++ " & " ++ showV seen y
+  showG seen (Not x)   = "~" ++ showV seen x
+  showG seen (Con x)   = showV seen x
+
+  defs seen [] = []
+  defs seen ((x,g):c) =
+    (shV x ++ " = " ++ showG seen g ++ ";")
+    : defs (S.insert x seen) c
+
+  mark s = "\027[4m" ++ s ++ "\027[0m"
+
+-- three-valued simulation
 sim3 :: Circuit -> Map Var Bool
 sim3 c = loop M.empty c
  where
@@ -75,6 +105,7 @@ sim3 c = loop M.empty c
        where
         mp' = M.insert x b mp
 
+-- reorder so that definitions come before uses (if possible), and remove unused definitions
 order :: [Var] -> Circuit -> Circuit
 order outs c = fst (go S.empty S.empty outs)
  where
@@ -92,6 +123,7 @@ order outs c = fst (go S.empty S.empty outs)
           (ds1, seen1) = go (S.insert x busy) seen (S.toList (fvs g))
           (ds2, seen2) = go busy (S.insert x seen1) xs
 
+-- simplify a circuit by repeatedly doing constant propagation and garbage collection
 simp :: [Var] -> Circuit -> Circuit
 simp outs c
   | c == c'   = c
@@ -99,6 +131,7 @@ simp outs c
  where
   c' = order outs (prop c)
 
+-- perform constant propagation
 prop :: Circuit -> Circuit
 prop c = go M.empty M.empty c
  where
@@ -136,14 +169,19 @@ prop c = go M.empty M.empty c
       Just v  -> v
   look v vmp       = v
 
+-- Combinational Loops ---------------------------------------------------------------
+
+-- find and remove one combinational loop
 dloop :: Circuit -> Circuit
 dloop c =
   case find S.empty c of
     Nothing -> c
     Just y  -> expand y c
  where
+  -- what variables are in use in the circuit
   ys = S.fromList ([ y | (x,g) <- c, y <- x : S.toList (fvs g) ])
 
+  -- find the first variable that is defined *after* its first use
   find used [] =
     Nothing
 
@@ -151,6 +189,7 @@ dloop c =
     | x `S.member` used = Just x
     | otherwise         = find (used `S.union` fvs g) c
 
+  -- expand the path from y's first use to y's definition
   expand y ((x,g):c)
     | y `S.member` fvs g = copy y ((x,g):c)
     | otherwise          = (x,g) : expand y c
@@ -162,21 +201,19 @@ dloop c =
     | (z,g) <- c1
     ]
     ++
-    [ (y, prgate g)
-    | (y,g) <- take 1 c2
-    ]
+    [ (y, prgate g) ]
     ++
     c1
     ++
-    tail c2
+    c2
    where
-    c1 = takeWhile ((/=y).fst) c
-    c2 = dropWhile ((/=y).fst) c
-    zs = S.fromList (y : [ z | (z,_) <- c1 ])
+    c1       = takeWhile ((/=y).fst) c
+    (_,g):c2 = dropWhile ((/=y).fst) c
+    zs       = S.fromList (y : [ z | (z,_) <- c1 ])
 
     prmap = M.fromList (primes (S.toList zs) ys)
      where
-      primes [] ys = []
+      primes []     ys = []
       primes (z:zs) ys = (z,z') : primes zs (S.insert z' ys)
        where
         z':_ = [ z' | z' <- [z..], not (z' `S.member` ys) ]
@@ -192,6 +229,7 @@ dloop c =
     prval (Var x) = Var (pr x)
     prval v       = v
 
+-- find and remove combinational loops, and simplify, until all are gone
 dloops :: [Var] -> Circuit -> Circuit
 dloops outs c
   | c == c'   = c
@@ -199,16 +237,96 @@ dloops outs c
  where
   c' = simp outs (dloop c)
 
+-- dloops, but with nice output
+dloopsIO :: [Var] -> [Var] -> Circuit -> IO Circuit
+dloopsIO inps outs c
+  | c == c'   = return c
+  | otherwise =
+    do putStrLn "==EXPAND-LOOP==>"
+       printC inps outs c'
+       putStrLn "==SIMPLIFY==>"
+       let c2 = simp outs c'
+       printC inps outs c2
+       dloopsIO inps outs c2
+ where
+  c' = dloop c
+
 -- main ------------------------------------------------------------------------
 
-ex1 :: Circuit
-ex1 = [ (4, And (Var 3) (Var 2))
-      , (3, And (Var 2) (Var 1))
-      , (2, And (Var 5) (Var 1))
-      , (1, And (Var 2) (Var 3))
-      ]
-      
-main = quickCheckWith stdArgs{ maxSuccess = 999999 } prop_Correct
+{-
+get -->
+set -->       --> err
+  x -->       --> top
+  s -->       --> s'
+ful -->       --> ful'
+-}
+
+{-
+buf :: Circuit
+buf 
+
+
+
+main :: IO ()
+main =
+  do printC inps outs buf
+     putStrLn " ==> "
+     printC inps outs (dloops outs buf)
+-}
+
+{-
+get -->
+set -->       --> err
+  x -->       --> top
+  s -->       --> s'
+ful -->       --> ful'
+-}
+
+
+{-
+x -->    --> y
+c -->
+a -->
+
+f(x) = ~x    10 -->f--> 11
+g(x) = x&a   20 -->g--> 21
+
+c=1: x-->10, 11-->20, 21-->4
+c=0: x-->20, 21-->10, 11-->4
+-}
+
+fg :: Circuit
+fg = [ (11, Not (Var 10))
+     , (21, And (Var 20) (Var 3))
+     ]
+     ++ iff 10 (Var 2) (Var 1)  (Var 21) 100
+     ++ iff 20 (Var 2) (Var 11) (Var 1)  200
+     ++ iff  4 (Var 2) (Var 21) (Var 11) 300
+ where
+  iff s c a b k =
+    [ (s, Con (Var k))
+    , (k, And (Var (k+1)) (Var (k+2)))
+    , (k+1, Not (Var (k+3)))
+    , (k+2, Not (Var (k+4)))
+    , (k+3, And c a)
+    , (k+4, And (Var (k+5)) b)
+    , (k+5, Not c)
+    ]
+
+ins = [1,2,3]
+ots = [4]
+
+main :: IO ()
+main =
+  do printC ins ots fg
+     putStrLn "==SORT==>"
+     let c' = order ots fg
+     printC ins ots c'
+     dloopsIO ins ots c'
+     return ()
+
+
+--main = quickCheckWith stdArgs{ maxSuccess = 999999 } prop_Correct
 
 -- aux ------------------------------------------------------------------------
 
