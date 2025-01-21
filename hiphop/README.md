@@ -11,11 +11,11 @@ npm install
 Then, to test the net list generation:
 
 ```
-npm test-json
+npm run test-json
 ```
 
 To test the PDF generation:
 
 ```
-npm  test-pdf
+npm run test-pdf
 ```

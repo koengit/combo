@@ -1,0 +1,839 @@
+{
+    "filename": "emit-if2.hh.mjs",
+    "sweep": true,
+    "nets": [{
+        "id": 0,
+        "lvl": 0,
+        "type": "REG",
+        "fanout": [{
+            "id": 16,
+            "dep": false
+        }, {
+            "id": 14,
+            "dep": false
+        }, {
+            "id": 15,
+            "dep": false
+        }, {
+            "id": 64,
+            "dep": false
+        }, {
+            "id": 62,
+            "dep": false
+        }, {
+            "id": 63,
+            "dep": false
+        }, {
+            "id": 30,
+            "dep": false
+        }, {
+            "id": 78,
+            "dep": false
+        }],
+        "fanin": [{
+            "id": 1,
+            "polarity": true,
+            "dep": false
+        }],
+        "$name": "global_boot_register [Module/RegisterNet]:0/0",
+        "$ast": "Module",
+        "$sweepable": false,
+        "$loc": {
+            "filename": "emit-if2.hh.mjs",
+            "pos": 111
+        },
+        "value": true
+    }, {
+        "id": 1,
+        "lvl": 0,
+        "type": "FALSE",
+        "fanout": [{
+            "id": 0,
+            "dep": false
+        }, {
+            "id": 28,
+            "dep": false
+        }, {
+            "id": 76,
+            "dep": false
+        }],
+        "fanin": [],
+        "$name": "global_const0 [Module/LogicalNet]:0/0",
+        "$ast": "Module",
+        "$sweepable": false,
+        "$loc": {
+            "filename": "emit-if2.hh.mjs",
+            "pos": 111
+        }
+    }, {
+        "id": 3,
+        "lvl": 0,
+        "type": "SIG",
+        "fanout": [],
+        "fanin": [{
+            "id": 14,
+            "polarity": true,
+            "dep": false
+        }, {
+            "id": 18,
+            "polarity": true,
+            "dep": false
+        }],
+        "$name": "A [Module/SignalNet]:0/0",
+        "$ast": "Module",
+        "$sweepable": true,
+        "$loc": {
+            "filename": "emit-if2.hh.mjs",
+            "pos": 111
+        },
+        "signame": "A",
+        "accessibility": 3
+    }, {
+        "id": 5,
+        "lvl": 0,
+        "type": "SIG",
+        "fanout": [],
+        "fanin": [{
+            "id": 62,
+            "polarity": true,
+            "dep": false
+        }, {
+            "id": 66,
+            "polarity": true,
+            "dep": false
+        }],
+        "$name": "B [Module/SignalNet]:0/0",
+        "$ast": "Module",
+        "$sweepable": true,
+        "$loc": {
+            "filename": "emit-if2.hh.mjs",
+            "pos": 111
+        },
+        "signame": "B",
+        "accessibility": 3
+    }, {
+        "id": 6,
+        "lvl": 0,
+        "type": "AND",
+        "fanout": [{
+            "id": 16,
+            "dep": true
+        }, {
+            "id": 20,
+            "dep": true
+        }],
+        "fanin": [{
+            "id": 56,
+            "polarity": true,
+            "dep": true
+        }, {
+            "id": 58,
+            "polarity": true,
+            "dep": true
+        }],
+        "$name": "B_dep_global [Module/LogicalNet]:0/0",
+        "$ast": "Module",
+        "$sweepable": true,
+        "$loc": {
+            "filename": "emit-if2.hh.mjs",
+            "pos": 111
+        }
+    }, {
+        "id": 7,
+        "lvl": 0,
+        "type": "SIG",
+        "fanout": [{
+            "id": 64,
+            "dep": false
+        }, {
+            "id": 68,
+            "dep": false
+        }],
+        "fanin": [],
+        "$name": "C [Module/SignalNet]:0/0",
+        "$ast": "Module",
+        "$sweepable": true,
+        "$loc": {
+            "filename": "emit-if2.hh.mjs",
+            "pos": 111
+        },
+        "signame": "C",
+        "accessibility": 3
+    }, {
+        "id": 14,
+        "lvl": 0,
+        "type": "AND",
+        "fanout": [{
+            "id": 3,
+            "dep": false
+        }, {
+            "id": 25,
+            "dep": false
+        }],
+        "fanin": [{
+            "id": 16,
+            "polarity": true,
+            "dep": false
+        }, {
+            "id": 0,
+            "polarity": true,
+            "dep": false
+        }],
+        "$name": "and_then [If/LogicalNet]:0/1",
+        "$ast": "If",
+        "$sweepable": true,
+        "$loc": {
+            "filename": "emit-if2.hh.mjs",
+            "pos": 173
+        }
+    }, {
+        "id": 15,
+        "lvl": 0,
+        "type": "AND",
+        "fanout": [{
+            "id": 25,
+            "dep": false
+        }],
+        "fanin": [{
+            "id": 16,
+            "polarity": false,
+            "dep": false
+        }, {
+            "id": 0,
+            "polarity": true,
+            "dep": false
+        }],
+        "$name": "and_else [If/LogicalNet]:0/1",
+        "$ast": "If",
+        "$sweepable": true,
+        "$loc": {
+            "filename": "emit-if2.hh.mjs",
+            "pos": 173
+        }
+    }, {
+        "id": 16,
+        "lvl": 0,
+        "type": "ACTION",
+        "fanout": [{
+            "id": 14,
+            "dep": false
+        }, {
+            "id": 15,
+            "dep": false
+        }],
+        "fanin": [{
+            "id": 6,
+            "polarity": true,
+            "dep": true
+        }, {
+            "id": 0,
+            "polarity": true,
+            "dep": false
+        }],
+        "$name": "testexpr [If/TestExpressionNet]:0/1",
+        "$ast": "If",
+        "$sweepable": true,
+        "$loc": {
+            "filename": "emit-if2.hh.mjs",
+            "pos": 173
+        },
+        "$signals": "B?",
+        "$action": "const B=this.B;return B.nowval &gt; 3;"
+    }, {
+        "id": 18,
+        "lvl": 1,
+        "type": "AND",
+        "fanout": [{
+            "id": 3,
+            "dep": false
+        }, {
+            "id": 26,
+            "dep": false
+        }],
+        "fanin": [{
+            "id": 20,
+            "polarity": true,
+            "dep": false
+        }, {
+            "id": 30,
+            "polarity": true,
+            "dep": false
+        }],
+        "$name": "and_then [If/LogicalNet]:1/1",
+        "$ast": "If",
+        "$sweepable": true,
+        "$loc": {
+            "filename": "emit-if2.hh.mjs",
+            "pos": 173
+        }
+    }, {
+        "id": 19,
+        "lvl": 1,
+        "type": "AND",
+        "fanout": [{
+            "id": 26,
+            "dep": false
+        }],
+        "fanin": [{
+            "id": 20,
+            "polarity": false,
+            "dep": false
+        }, {
+            "id": 30,
+            "polarity": true,
+            "dep": false
+        }],
+        "$name": "and_else [If/LogicalNet]:1/1",
+        "$ast": "If",
+        "$sweepable": true,
+        "$loc": {
+            "filename": "emit-if2.hh.mjs",
+            "pos": 173
+        }
+    }, {
+        "id": 20,
+        "lvl": 1,
+        "type": "ACTION",
+        "fanout": [{
+            "id": 18,
+            "dep": false
+        }, {
+            "id": 19,
+            "dep": false
+        }],
+        "fanin": [{
+            "id": 6,
+            "polarity": true,
+            "dep": true
+        }, {
+            "id": 30,
+            "polarity": true,
+            "dep": false
+        }],
+        "$name": "testexpr [If/TestExpressionNet]:1/1",
+        "$ast": "If",
+        "$sweepable": true,
+        "$loc": {
+            "filename": "emit-if2.hh.mjs",
+            "pos": 173
+        },
+        "$signals": "B?",
+        "$action": "const B=this.B;return B.nowval &gt; 3;"
+    }, {
+        "id": 25,
+        "lvl": "0_union_buffer",
+        "type": "OR",
+        "fanout": [{
+            "id": 29,
+            "dep": false
+        }],
+        "fanin": [{
+            "id": 14,
+            "polarity": true,
+            "dep": false
+        }, {
+            "id": 15,
+            "polarity": true,
+            "dep": false
+        }],
+        "$name": "k [If/LogicalNet]:0_union_buffer/1",
+        "$ast": "If",
+        "$sweepable": true,
+        "$loc": {
+            "filename": "emit-if2.hh.mjs",
+            "pos": 173
+        }
+    }, {
+        "id": 26,
+        "lvl": "0_union_buffer",
+        "type": "OR",
+        "fanout": [{
+            "id": 29,
+            "dep": false
+        }],
+        "fanin": [{
+            "id": 18,
+            "polarity": true,
+            "dep": false
+        }, {
+            "id": 19,
+            "polarity": true,
+            "dep": false
+        }],
+        "$name": "k [If/LogicalNet]:0_union_buffer/1",
+        "$ast": "If",
+        "$sweepable": true,
+        "$loc": {
+            "filename": "emit-if2.hh.mjs",
+            "pos": 173
+        }
+    }, {
+        "id": 27,
+        "lvl": 0,
+        "type": "REG",
+        "fanout": [{
+            "id": 30,
+            "dep": false
+        }, {
+            "id": 28,
+            "dep": false
+        }],
+        "fanin": [{
+            "id": 29,
+            "polarity": true,
+            "dep": false
+        }],
+        "$name": "reg [Pause/RegisterNet]:0/1",
+        "$ast": "Pause",
+        "$sweepable": false,
+        "$loc": {
+            "filename": "emit-if2.hh.mjs",
+            "pos": 214
+        },
+        "value": false
+    }, {
+        "id": 28,
+        "lvl": 0,
+        "type": "AND",
+        "fanout": [{
+            "id": 29,
+            "dep": false
+        }],
+        "fanin": [{
+            "id": 27,
+            "polarity": true,
+            "dep": false
+        }, {
+            "id": 1,
+            "polarity": true,
+            "dep": false
+        }],
+        "$name": "and_to_reg [Pause/LogicalNet]:0/1",
+        "$ast": "Pause",
+        "$sweepable": true,
+        "$loc": {
+            "filename": "emit-if2.hh.mjs",
+            "pos": 214
+        }
+    }, {
+        "id": 29,
+        "lvl": 0,
+        "type": "OR",
+        "fanout": [{
+            "id": 27,
+            "dep": false
+        }],
+        "fanin": [{
+            "id": 28,
+            "polarity": true,
+            "dep": false
+        }, {
+            "id": 25,
+            "polarity": true,
+            "dep": false
+        }, {
+            "id": 26,
+            "polarity": true,
+            "dep": false
+        }],
+        "$name": "or_to_reg [Pause/LogicalNet]:0/1",
+        "$ast": "Pause",
+        "$sweepable": true,
+        "$loc": {
+            "filename": "emit-if2.hh.mjs",
+            "pos": 214
+        }
+    }, {
+        "id": 30,
+        "lvl": 0,
+        "type": "AND",
+        "fanout": [{
+            "id": 20,
+            "dep": false
+        }, {
+            "id": 18,
+            "dep": false
+        }, {
+            "id": 19,
+            "dep": false
+        }],
+        "fanin": [{
+            "id": 27,
+            "polarity": true,
+            "dep": false
+        }, {
+            "id": 0,
+            "polarity": false,
+            "dep": false
+        }],
+        "$name": "and_to_k0 [Pause/LogicalNet]:0/1",
+        "$ast": "Pause",
+        "$sweepable": true,
+        "$loc": {
+            "filename": "emit-if2.hh.mjs",
+            "pos": 214
+        }
+    }, {
+        "id": 56,
+        "lvl": 0,
+        "type": "SIGACTION",
+        "fanout": [{
+            "id": 6,
+            "dep": true
+        }, {
+            "id": 73,
+            "dep": false
+        }],
+        "fanin": [{
+            "id": 62,
+            "polarity": true,
+            "dep": false
+        }],
+        "$name": "B_signal_expr [Emit/SignalExpressionNet]:0/1",
+        "$ast": "Emit",
+        "$sweepable": true,
+        "$loc": {
+            "filename": "emit-if2.hh.mjs",
+            "pos": 278
+        },
+        "$signals": "",
+        "$action": "return 4;",
+        "signal": "!B:0"
+    }, {
+        "id": 58,
+        "lvl": 1,
+        "type": "SIGACTION",
+        "fanout": [{
+            "id": 6,
+            "dep": true
+        }, {
+            "id": 74,
+            "dep": false
+        }],
+        "fanin": [{
+            "id": 66,
+            "polarity": true,
+            "dep": false
+        }],
+        "$name": "B_signal_expr [Emit/SignalExpressionNet]:1/1",
+        "$ast": "Emit",
+        "$sweepable": true,
+        "$loc": {
+            "filename": "emit-if2.hh.mjs",
+            "pos": 278
+        },
+        "$signals": "",
+        "$action": "return 4;",
+        "signal": "!B:0"
+    }, {
+        "id": 62,
+        "lvl": 0,
+        "type": "AND",
+        "fanout": [{
+            "id": 5,
+            "dep": false
+        }, {
+            "id": 56,
+            "dep": false
+        }],
+        "fanin": [{
+            "id": 64,
+            "polarity": true,
+            "dep": false
+        }, {
+            "id": 0,
+            "polarity": true,
+            "dep": false
+        }],
+        "$name": "and_then [If/LogicalNet]:0/1",
+        "$ast": "If",
+        "$sweepable": true,
+        "$loc": {
+            "filename": "emit-if2.hh.mjs",
+            "pos": 255
+        }
+    }, {
+        "id": 63,
+        "lvl": 0,
+        "type": "AND",
+        "fanout": [{
+            "id": 73,
+            "dep": false
+        }],
+        "fanin": [{
+            "id": 64,
+            "polarity": false,
+            "dep": false
+        }, {
+            "id": 0,
+            "polarity": true,
+            "dep": false
+        }],
+        "$name": "and_else [If/LogicalNet]:0/1",
+        "$ast": "If",
+        "$sweepable": true,
+        "$loc": {
+            "filename": "emit-if2.hh.mjs",
+            "pos": 255
+        }
+    }, {
+        "id": 64,
+        "lvl": 0,
+        "type": "AND",
+        "fanout": [{
+            "id": 62,
+            "dep": false
+        }, {
+            "id": 63,
+            "dep": false
+        }],
+        "fanin": [{
+            "id": 7,
+            "polarity": true,
+            "dep": false
+        }, {
+            "id": 0,
+            "polarity": true,
+            "dep": false
+        }],
+        "$name": "testexpr_to_and [If/LogicalNet]:0/1",
+        "$ast": "If",
+        "$sweepable": true,
+        "$loc": {
+            "filename": "emit-if2.hh.mjs",
+            "pos": 255
+        }
+    }, {
+        "id": 66,
+        "lvl": 1,
+        "type": "AND",
+        "fanout": [{
+            "id": 5,
+            "dep": false
+        }, {
+            "id": 58,
+            "dep": false
+        }],
+        "fanin": [{
+            "id": 68,
+            "polarity": true,
+            "dep": false
+        }, {
+            "id": 78,
+            "polarity": true,
+            "dep": false
+        }],
+        "$name": "and_then [If/LogicalNet]:1/1",
+        "$ast": "If",
+        "$sweepable": true,
+        "$loc": {
+            "filename": "emit-if2.hh.mjs",
+            "pos": 255
+        }
+    }, {
+        "id": 67,
+        "lvl": 1,
+        "type": "AND",
+        "fanout": [{
+            "id": 74,
+            "dep": false
+        }],
+        "fanin": [{
+            "id": 68,
+            "polarity": false,
+            "dep": false
+        }, {
+            "id": 78,
+            "polarity": true,
+            "dep": false
+        }],
+        "$name": "and_else [If/LogicalNet]:1/1",
+        "$ast": "If",
+        "$sweepable": true,
+        "$loc": {
+            "filename": "emit-if2.hh.mjs",
+            "pos": 255
+        }
+    }, {
+        "id": 68,
+        "lvl": 1,
+        "type": "AND",
+        "fanout": [{
+            "id": 66,
+            "dep": false
+        }, {
+            "id": 67,
+            "dep": false
+        }],
+        "fanin": [{
+            "id": 7,
+            "polarity": true,
+            "dep": false
+        }, {
+            "id": 78,
+            "polarity": true,
+            "dep": false
+        }],
+        "$name": "testexpr_to_and [If/LogicalNet]:1/1",
+        "$ast": "If",
+        "$sweepable": true,
+        "$loc": {
+            "filename": "emit-if2.hh.mjs",
+            "pos": 255
+        }
+    }, {
+        "id": 73,
+        "lvl": "0_union_buffer",
+        "type": "OR",
+        "fanout": [{
+            "id": 77,
+            "dep": false
+        }],
+        "fanin": [{
+            "id": 56,
+            "polarity": true,
+            "dep": false
+        }, {
+            "id": 63,
+            "polarity": true,
+            "dep": false
+        }],
+        "$name": "k [If/LogicalNet]:0_union_buffer/1",
+        "$ast": "If",
+        "$sweepable": true,
+        "$loc": {
+            "filename": "emit-if2.hh.mjs",
+            "pos": 255
+        }
+    }, {
+        "id": 74,
+        "lvl": "0_union_buffer",
+        "type": "OR",
+        "fanout": [{
+            "id": 77,
+            "dep": false
+        }],
+        "fanin": [{
+            "id": 58,
+            "polarity": true,
+            "dep": false
+        }, {
+            "id": 67,
+            "polarity": true,
+            "dep": false
+        }],
+        "$name": "k [If/LogicalNet]:0_union_buffer/1",
+        "$ast": "If",
+        "$sweepable": true,
+        "$loc": {
+            "filename": "emit-if2.hh.mjs",
+            "pos": 255
+        }
+    }, {
+        "id": 75,
+        "lvl": 0,
+        "type": "REG",
+        "fanout": [{
+            "id": 78,
+            "dep": false
+        }, {
+            "id": 76,
+            "dep": false
+        }],
+        "fanin": [{
+            "id": 77,
+            "polarity": true,
+            "dep": false
+        }],
+        "$name": "reg [Pause/RegisterNet]:0/1",
+        "$ast": "Pause",
+        "$sweepable": false,
+        "$loc": {
+            "filename": "emit-if2.hh.mjs",
+            "pos": 290
+        },
+        "value": false
+    }, {
+        "id": 76,
+        "lvl": 0,
+        "type": "AND",
+        "fanout": [{
+            "id": 77,
+            "dep": false
+        }],
+        "fanin": [{
+            "id": 75,
+            "polarity": true,
+            "dep": false
+        }, {
+            "id": 1,
+            "polarity": true,
+            "dep": false
+        }],
+        "$name": "and_to_reg [Pause/LogicalNet]:0/1",
+        "$ast": "Pause",
+        "$sweepable": true,
+        "$loc": {
+            "filename": "emit-if2.hh.mjs",
+            "pos": 290
+        }
+    }, {
+        "id": 77,
+        "lvl": 0,
+        "type": "OR",
+        "fanout": [{
+            "id": 75,
+            "dep": false
+        }],
+        "fanin": [{
+            "id": 76,
+            "polarity": true,
+            "dep": false
+        }, {
+            "id": 73,
+            "polarity": true,
+            "dep": false
+        }, {
+            "id": 74,
+            "polarity": true,
+            "dep": false
+        }],
+        "$name": "or_to_reg [Pause/LogicalNet]:0/1",
+        "$ast": "Pause",
+        "$sweepable": true,
+        "$loc": {
+            "filename": "emit-if2.hh.mjs",
+            "pos": 290
+        }
+    }, {
+        "id": 78,
+        "lvl": 0,
+        "type": "AND",
+        "fanout": [{
+            "id": 68,
+            "dep": false
+        }, {
+            "id": 66,
+            "dep": false
+        }, {
+            "id": 67,
+            "dep": false
+        }],
+        "fanin": [{
+            "id": 75,
+            "polarity": true,
+            "dep": false
+        }, {
+            "id": 0,
+            "polarity": false,
+            "dep": false
+        }],
+        "$name": "and_to_k0 [Pause/LogicalNet]:0/1",
+        "$ast": "Pause",
+        "$sweepable": true,
+        "$loc": {
+            "filename": "emit-if2.hh.mjs",
+            "pos": 290
+        }
+    }]
+}
