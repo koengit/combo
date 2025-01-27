@@ -1,0 +1,983 @@
+{
+    "filename": "abro.hh.mjs",
+    "sweep": true,
+    "nets": [{
+        "id": 0,
+        "lvl": 0,
+        "type": "REG",
+        "fanout": [{
+            "id": 172,
+            "dep": false
+        }, {
+            "id": 13,
+            "dep": false
+        }, {
+            "id": 49,
+            "dep": false
+        }],
+        "fanin": [{
+            "id": 1,
+            "polarity": true,
+            "dep": false
+        }],
+        "$name": "global_boot_register [Module/RegisterNet]:0/0",
+        "$ast": "Module",
+        "$sweepable": false,
+        "$loc": {
+            "filename": "abro.hh.mjs",
+            "pos": 55
+        },
+        "value": true
+    }, {
+        "id": 1,
+        "lvl": 0,
+        "type": "FALSE",
+        "fanout": [{
+            "id": 0,
+            "dep": false
+        }, {
+            "id": 146,
+            "dep": false
+        }, {
+            "id": 12,
+            "dep": false
+        }, {
+            "id": 48,
+            "dep": false
+        }],
+        "fanin": [],
+        "$name": "global_const0 [Module/LogicalNet]:0/0",
+        "$ast": "Module",
+        "$sweepable": false,
+        "$loc": {
+            "filename": "abro.hh.mjs",
+            "pos": 55
+        }
+    }, {
+        "id": 3,
+        "lvl": 0,
+        "type": "SIG",
+        "fanout": [{
+            "id": 40,
+            "dep": false
+        }],
+        "fanin": [],
+        "$name": "A [Module/SignalNet]:0/0",
+        "$ast": "Module",
+        "$sweepable": true,
+        "$loc": {
+            "filename": "abro.hh.mjs",
+            "pos": 55
+        },
+        "signame": "A",
+        "accessibility": 1
+    }, {
+        "id": 5,
+        "lvl": 0,
+        "type": "SIG",
+        "fanout": [{
+            "id": 76,
+            "dep": false
+        }],
+        "fanin": [],
+        "$name": "B [Module/SignalNet]:0/0",
+        "$ast": "Module",
+        "$sweepable": true,
+        "$loc": {
+            "filename": "abro.hh.mjs",
+            "pos": 55
+        },
+        "signame": "B",
+        "accessibility": 1
+    }, {
+        "id": 7,
+        "lvl": 0,
+        "type": "SIG",
+        "fanout": [{
+            "id": 178,
+            "dep": false
+        }],
+        "fanin": [],
+        "$name": "R [Module/SignalNet]:0/0",
+        "$ast": "Module",
+        "$sweepable": true,
+        "$loc": {
+            "filename": "abro.hh.mjs",
+            "pos": 55
+        },
+        "signame": "R",
+        "accessibility": 1
+    }, {
+        "id": 9,
+        "lvl": 0,
+        "type": "SIG",
+        "fanout": [],
+        "fanin": [{
+            "id": 127,
+            "polarity": true,
+            "dep": false
+        }],
+        "$name": "O [Module/SignalNet]:0/0",
+        "$ast": "Module",
+        "$sweepable": true,
+        "$loc": {
+            "filename": "abro.hh.mjs",
+            "pos": 55
+        },
+        "signame": "O",
+        "accessibility": 2
+    }, {
+        "id": 11,
+        "lvl": 0,
+        "type": "REG",
+        "fanout": [{
+            "id": 14,
+            "dep": false
+        }, {
+            "id": 12,
+            "dep": false
+        }, {
+            "id": 33,
+            "dep": false
+        }, {
+            "id": 91,
+            "dep": false
+        }, {
+            "id": 119,
+            "dep": false
+        }],
+        "fanin": [{
+            "id": 13,
+            "polarity": true,
+            "dep": false
+        }],
+        "$name": "reg [Await/RegisterNet]:0/2",
+        "$ast": "Await",
+        "$sweepable": false,
+        "$loc": {
+            "filename": "abro.hh.mjs",
+            "pos": 122
+        },
+        "value": false
+    }, {
+        "id": 12,
+        "lvl": 0,
+        "type": "AND",
+        "fanout": [{
+            "id": 13,
+            "dep": false
+        }],
+        "fanin": [{
+            "id": 11,
+            "polarity": true,
+            "dep": false
+        }, {
+            "id": 1,
+            "polarity": true,
+            "dep": false
+        }],
+        "$name": "and_to_reg [Await/LogicalNet]:0/2",
+        "$ast": "Await",
+        "$sweepable": true,
+        "$loc": {
+            "filename": "abro.hh.mjs",
+            "pos": 122
+        }
+    }, {
+        "id": 13,
+        "lvl": 0,
+        "type": "OR",
+        "fanout": [{
+            "id": 11,
+            "dep": false
+        }],
+        "fanin": [{
+            "id": 12,
+            "polarity": true,
+            "dep": false
+        }, {
+            "id": 0,
+            "polarity": true,
+            "dep": false
+        }, {
+            "id": 174,
+            "polarity": true,
+            "dep": false
+        }, {
+            "id": 14,
+            "polarity": true,
+            "dep": false
+        }],
+        "$name": "or_to_reg [Await/LogicalNet]:0/2",
+        "$ast": "Await",
+        "$sweepable": true,
+        "$loc": {
+            "filename": "abro.hh.mjs",
+            "pos": 122
+        }
+    }, {
+        "id": 14,
+        "lvl": 0,
+        "type": "AND",
+        "fanout": [{
+            "id": 13,
+            "dep": false
+        }],
+        "fanin": [{
+            "id": 11,
+            "polarity": true,
+            "dep": false
+        }, {
+            "id": 34,
+            "polarity": true,
+            "dep": false
+        }],
+        "$name": "and_to_k0 [Await/LogicalNet]:0/2",
+        "$ast": "Await",
+        "$sweepable": true,
+        "$loc": {
+            "filename": "abro.hh.mjs",
+            "pos": 122
+        }
+    }, {
+        "id": 33,
+        "lvl": 0,
+        "type": "AND",
+        "fanout": [{
+            "id": 40,
+            "dep": false
+        }, {
+            "id": 34,
+            "dep": false
+        }, {
+            "id": 35,
+            "dep": false
+        }],
+        "fanin": [{
+            "id": 11,
+            "polarity": true,
+            "dep": false
+        }, {
+            "id": 173,
+            "polarity": true,
+            "dep": false
+        }],
+        "$name": "and1_sel_res [Await/LogicalNet]:0/2",
+        "$ast": "Await",
+        "$sweepable": true,
+        "$loc": {
+            "filename": "abro.hh.mjs",
+            "pos": 122
+        }
+    }, {
+        "id": 34,
+        "lvl": 0,
+        "type": "AND",
+        "fanout": [{
+            "id": 14,
+            "dep": false
+        }],
+        "fanin": [{
+            "id": 40,
+            "polarity": false,
+            "dep": false
+        }, {
+            "id": 33,
+            "polarity": true,
+            "dep": false
+        }],
+        "$name": "and2_negtest_and1 [Await/LogicalNet]:0/2",
+        "$ast": "Await",
+        "$sweepable": true,
+        "$loc": {
+            "filename": "abro.hh.mjs",
+            "pos": 122
+        }
+    }, {
+        "id": 35,
+        "lvl": 0,
+        "type": "AND",
+        "fanout": [{
+            "id": 119,
+            "dep": false
+        }, {
+            "id": 94,
+            "dep": false
+        }],
+        "fanin": [{
+            "id": 40,
+            "polarity": true,
+            "dep": false
+        }, {
+            "id": 33,
+            "polarity": true,
+            "dep": false
+        }],
+        "$name": "and3_test_and1 [Await/LogicalNet]:0/2",
+        "$ast": "Await",
+        "$sweepable": true,
+        "$loc": {
+            "filename": "abro.hh.mjs",
+            "pos": 122
+        }
+    }, {
+        "id": 40,
+        "lvl": 2,
+        "type": "AND",
+        "fanout": [{
+            "id": 35,
+            "dep": false
+        }, {
+            "id": 34,
+            "dep": false
+        }],
+        "fanin": [{
+            "id": 3,
+            "polarity": true,
+            "dep": false
+        }, {
+            "id": 33,
+            "polarity": true,
+            "dep": false
+        }],
+        "$name": "testexpr_to_and [Await/LogicalNet]:2/2",
+        "$ast": "Await",
+        "$sweepable": true,
+        "$loc": {
+            "filename": "abro.hh.mjs",
+            "pos": 122
+        }
+    }, {
+        "id": 47,
+        "lvl": 0,
+        "type": "REG",
+        "fanout": [{
+            "id": 50,
+            "dep": false
+        }, {
+            "id": 48,
+            "dep": false
+        }, {
+            "id": 69,
+            "dep": false
+        }, {
+            "id": 91,
+            "dep": false
+        }, {
+            "id": 112,
+            "dep": false
+        }],
+        "fanin": [{
+            "id": 49,
+            "polarity": true,
+            "dep": false
+        }],
+        "$name": "reg [Await/RegisterNet]:0/2",
+        "$ast": "Await",
+        "$sweepable": false,
+        "$loc": {
+            "filename": "abro.hh.mjs",
+            "pos": 152
+        },
+        "value": false
+    }, {
+        "id": 48,
+        "lvl": 0,
+        "type": "AND",
+        "fanout": [{
+            "id": 49,
+            "dep": false
+        }],
+        "fanin": [{
+            "id": 47,
+            "polarity": true,
+            "dep": false
+        }, {
+            "id": 1,
+            "polarity": true,
+            "dep": false
+        }],
+        "$name": "and_to_reg [Await/LogicalNet]:0/2",
+        "$ast": "Await",
+        "$sweepable": true,
+        "$loc": {
+            "filename": "abro.hh.mjs",
+            "pos": 152
+        }
+    }, {
+        "id": 49,
+        "lvl": 0,
+        "type": "OR",
+        "fanout": [{
+            "id": 47,
+            "dep": false
+        }],
+        "fanin": [{
+            "id": 48,
+            "polarity": true,
+            "dep": false
+        }, {
+            "id": 0,
+            "polarity": true,
+            "dep": false
+        }, {
+            "id": 174,
+            "polarity": true,
+            "dep": false
+        }, {
+            "id": 50,
+            "polarity": true,
+            "dep": false
+        }],
+        "$name": "or_to_reg [Await/LogicalNet]:0/2",
+        "$ast": "Await",
+        "$sweepable": true,
+        "$loc": {
+            "filename": "abro.hh.mjs",
+            "pos": 152
+        }
+    }, {
+        "id": 50,
+        "lvl": 0,
+        "type": "AND",
+        "fanout": [{
+            "id": 49,
+            "dep": false
+        }],
+        "fanin": [{
+            "id": 47,
+            "polarity": true,
+            "dep": false
+        }, {
+            "id": 70,
+            "polarity": true,
+            "dep": false
+        }],
+        "$name": "and_to_k0 [Await/LogicalNet]:0/2",
+        "$ast": "Await",
+        "$sweepable": true,
+        "$loc": {
+            "filename": "abro.hh.mjs",
+            "pos": 152
+        }
+    }, {
+        "id": 69,
+        "lvl": 0,
+        "type": "AND",
+        "fanout": [{
+            "id": 76,
+            "dep": false
+        }, {
+            "id": 70,
+            "dep": false
+        }, {
+            "id": 71,
+            "dep": false
+        }],
+        "fanin": [{
+            "id": 47,
+            "polarity": true,
+            "dep": false
+        }, {
+            "id": 173,
+            "polarity": true,
+            "dep": false
+        }],
+        "$name": "and1_sel_res [Await/LogicalNet]:0/2",
+        "$ast": "Await",
+        "$sweepable": true,
+        "$loc": {
+            "filename": "abro.hh.mjs",
+            "pos": 152
+        }
+    }, {
+        "id": 70,
+        "lvl": 0,
+        "type": "AND",
+        "fanout": [{
+            "id": 50,
+            "dep": false
+        }],
+        "fanin": [{
+            "id": 76,
+            "polarity": false,
+            "dep": false
+        }, {
+            "id": 69,
+            "polarity": true,
+            "dep": false
+        }],
+        "$name": "and2_negtest_and1 [Await/LogicalNet]:0/2",
+        "$ast": "Await",
+        "$sweepable": true,
+        "$loc": {
+            "filename": "abro.hh.mjs",
+            "pos": 152
+        }
+    }, {
+        "id": 71,
+        "lvl": 0,
+        "type": "AND",
+        "fanout": [{
+            "id": 112,
+            "dep": false
+        }, {
+            "id": 94,
+            "dep": false
+        }],
+        "fanin": [{
+            "id": 76,
+            "polarity": true,
+            "dep": false
+        }, {
+            "id": 69,
+            "polarity": true,
+            "dep": false
+        }],
+        "$name": "and3_test_and1 [Await/LogicalNet]:0/2",
+        "$ast": "Await",
+        "$sweepable": true,
+        "$loc": {
+            "filename": "abro.hh.mjs",
+            "pos": 152
+        }
+    }, {
+        "id": 76,
+        "lvl": 2,
+        "type": "AND",
+        "fanout": [{
+            "id": 71,
+            "dep": false
+        }, {
+            "id": 70,
+            "dep": false
+        }],
+        "fanin": [{
+            "id": 5,
+            "polarity": true,
+            "dep": false
+        }, {
+            "id": 69,
+            "polarity": true,
+            "dep": false
+        }],
+        "$name": "testexpr_to_and [Await/LogicalNet]:2/2",
+        "$ast": "Await",
+        "$sweepable": true,
+        "$loc": {
+            "filename": "abro.hh.mjs",
+            "pos": 152
+        }
+    }, {
+        "id": 91,
+        "lvl": 0,
+        "type": "OR",
+        "fanout": [{
+            "id": 161,
+            "dep": false
+        }],
+        "fanin": [{
+            "id": 11,
+            "polarity": true,
+            "dep": false
+        }, {
+            "id": 47,
+            "polarity": true,
+            "dep": false
+        }],
+        "$name": "sel [Fork/LogicalNet]:0/2",
+        "$ast": "Fork",
+        "$sweepable": true,
+        "$loc": {
+            "filename": "abro.hh.mjs",
+            "pos": 113
+        }
+    }, {
+        "id": 94,
+        "lvl": 2,
+        "type": "OR",
+        "fanout": [{
+            "id": 127,
+            "dep": false
+        }],
+        "fanin": [{
+            "id": 35,
+            "polarity": true,
+            "dep": false
+        }, {
+            "id": 71,
+            "polarity": true,
+            "dep": false
+        }],
+        "$name": "union_k0 [Fork/LogicalNet]:2/2",
+        "$ast": "Fork",
+        "$sweepable": true,
+        "$loc": {
+            "filename": "abro.hh.mjs",
+            "pos": 113
+        }
+    }, {
+        "id": 112,
+        "lvl": 2,
+        "type": "OR",
+        "fanout": [{
+            "id": 127,
+            "dep": false
+        }],
+        "fanin": [{
+            "id": 71,
+            "polarity": true,
+            "dep": false
+        }, {
+            "id": 47,
+            "polarity": false,
+            "dep": false
+        }],
+        "$name": "or_min_k0_child1 [Fork/LogicalNet]:2/2",
+        "$ast": "Fork",
+        "$sweepable": true,
+        "$loc": {
+            "filename": "abro.hh.mjs",
+            "pos": 113
+        }
+    }, {
+        "id": 119,
+        "lvl": 2,
+        "type": "OR",
+        "fanout": [{
+            "id": 127,
+            "dep": false
+        }],
+        "fanin": [{
+            "id": 35,
+            "polarity": true,
+            "dep": false
+        }, {
+            "id": 11,
+            "polarity": false,
+            "dep": false
+        }],
+        "$name": "or_min_k0_child0 [Fork/LogicalNet]:2/2",
+        "$ast": "Fork",
+        "$sweepable": true,
+        "$loc": {
+            "filename": "abro.hh.mjs",
+            "pos": 113
+        }
+    }, {
+        "id": 127,
+        "lvl": 2,
+        "type": "AND",
+        "fanout": [{
+            "id": 9,
+            "dep": false
+        }, {
+            "id": 133,
+            "dep": false
+        }],
+        "fanin": [{
+            "id": 94,
+            "polarity": true,
+            "dep": false
+        }, {
+            "id": 112,
+            "polarity": true,
+            "dep": false
+        }, {
+            "id": 119,
+            "polarity": true,
+            "dep": false
+        }],
+        "$name": "and_k0 [Fork/LogicalNet]:2/2",
+        "$ast": "Fork",
+        "$sweepable": true,
+        "$loc": {
+            "filename": "abro.hh.mjs",
+            "pos": 113
+        }
+    }, {
+        "id": 133,
+        "lvl": 1,
+        "type": "SIGACTION",
+        "fanout": [{
+            "id": 156,
+            "dep": false
+        }],
+        "fanin": [{
+            "id": 127,
+            "polarity": true,
+            "dep": false
+        }],
+        "$name": "O_signal_expr [Emit/SignalExpressionNet]:1/1",
+        "$ast": "Emit",
+        "$sweepable": true,
+        "$loc": {
+            "filename": "abro.hh.mjs",
+            "pos": 185
+        },
+        "$signals": "",
+        "$action": "return 123456789;",
+        "signal": "!O:0"
+    }, {
+        "id": 145,
+        "lvl": 0,
+        "type": "REG",
+        "fanout": [{
+            "id": 148,
+            "dep": false
+        }, {
+            "id": 146,
+            "dep": false
+        }, {
+            "id": 161,
+            "dep": false
+        }],
+        "fanin": [{
+            "id": 147,
+            "polarity": true,
+            "dep": false
+        }],
+        "$name": "reg [LoopEach/RegisterNet]:0/1",
+        "$ast": "LoopEach",
+        "$sweepable": false,
+        "$loc": {
+            "filename": "abro.hh.mjs",
+            "pos": 102
+        },
+        "value": false
+    }, {
+        "id": 146,
+        "lvl": 0,
+        "type": "AND",
+        "fanout": [{
+            "id": 147,
+            "dep": false
+        }],
+        "fanin": [{
+            "id": 145,
+            "polarity": true,
+            "dep": false
+        }, {
+            "id": 1,
+            "polarity": true,
+            "dep": false
+        }],
+        "$name": "and_to_reg [LoopEach/LogicalNet]:0/1",
+        "$ast": "LoopEach",
+        "$sweepable": true,
+        "$loc": {
+            "filename": "abro.hh.mjs",
+            "pos": 102
+        }
+    }, {
+        "id": 147,
+        "lvl": 0,
+        "type": "OR",
+        "fanout": [{
+            "id": 145,
+            "dep": false
+        }],
+        "fanin": [{
+            "id": 146,
+            "polarity": true,
+            "dep": false
+        }, {
+            "id": 156,
+            "polarity": true,
+            "dep": false
+        }],
+        "$name": "or_to_reg [LoopEach/LogicalNet]:0/1",
+        "$ast": "LoopEach",
+        "$sweepable": true,
+        "$loc": {
+            "filename": "abro.hh.mjs",
+            "pos": 102
+        }
+    }, {
+        "id": 148,
+        "lvl": 0,
+        "type": "AND",
+        "fanout": [{
+            "id": 156,
+            "dep": false
+        }],
+        "fanin": [{
+            "id": 145,
+            "polarity": true,
+            "dep": false
+        }, {
+            "id": 173,
+            "polarity": true,
+            "dep": false
+        }],
+        "$name": "and_to_k0 [LoopEach/LogicalNet]:0/1",
+        "$ast": "LoopEach",
+        "$sweepable": true,
+        "$loc": {
+            "filename": "abro.hh.mjs",
+            "pos": 102
+        }
+    }, {
+        "id": 156,
+        "lvl": 1,
+        "type": "OR",
+        "fanout": [{
+            "id": 147,
+            "dep": false
+        }],
+        "fanin": [{
+            "id": 148,
+            "polarity": true,
+            "dep": false
+        }, {
+            "id": 133,
+            "polarity": true,
+            "dep": false
+        }],
+        "$name": "go [LoopEach/LogicalNet]:1/1",
+        "$ast": "LoopEach",
+        "$sweepable": true,
+        "$loc": {
+            "filename": "abro.hh.mjs",
+            "pos": 102
+        }
+    }, {
+        "id": 161,
+        "lvl": 0,
+        "type": "OR",
+        "fanout": [{
+            "id": 172,
+            "dep": false
+        }],
+        "fanin": [{
+            "id": 145,
+            "polarity": true,
+            "dep": false
+        }, {
+            "id": 91,
+            "polarity": true,
+            "dep": false
+        }],
+        "$name": "sel [LoopEach/LogicalNet]:0/1",
+        "$ast": "LoopEach",
+        "$sweepable": true,
+        "$loc": {
+            "filename": "abro.hh.mjs",
+            "pos": 102
+        }
+    }, {
+        "id": 172,
+        "lvl": 0,
+        "type": "AND",
+        "fanout": [{
+            "id": 178,
+            "dep": false
+        }, {
+            "id": 173,
+            "dep": false
+        }, {
+            "id": 174,
+            "dep": false
+        }],
+        "fanin": [{
+            "id": 161,
+            "polarity": true,
+            "dep": false
+        }, {
+            "id": 0,
+            "polarity": false,
+            "dep": false
+        }],
+        "$name": "and1_sel_res [LoopEach/LogicalNet]:0/1",
+        "$ast": "LoopEach",
+        "$sweepable": true,
+        "$loc": {
+            "filename": "abro.hh.mjs",
+            "pos": 102
+        }
+    }, {
+        "id": 173,
+        "lvl": 0,
+        "type": "AND",
+        "fanout": [{
+            "id": 148,
+            "dep": false
+        }, {
+            "id": 33,
+            "dep": false
+        }, {
+            "id": 69,
+            "dep": false
+        }],
+        "fanin": [{
+            "id": 178,
+            "polarity": false,
+            "dep": false
+        }, {
+            "id": 172,
+            "polarity": true,
+            "dep": false
+        }],
+        "$name": "and2_negtest_and1 [LoopEach/LogicalNet]:0/1",
+        "$ast": "LoopEach",
+        "$sweepable": true,
+        "$loc": {
+            "filename": "abro.hh.mjs",
+            "pos": 102
+        }
+    }, {
+        "id": 174,
+        "lvl": 0,
+        "type": "AND",
+        "fanout": [{
+            "id": 13,
+            "dep": false
+        }, {
+            "id": 49,
+            "dep": false
+        }],
+        "fanin": [{
+            "id": 178,
+            "polarity": true,
+            "dep": false
+        }, {
+            "id": 172,
+            "polarity": true,
+            "dep": false
+        }],
+        "$name": "and3_test_and1 [LoopEach/LogicalNet]:0/1",
+        "$ast": "LoopEach",
+        "$sweepable": true,
+        "$loc": {
+            "filename": "abro.hh.mjs",
+            "pos": 102
+        }
+    }, {
+        "id": 178,
+        "lvl": 1,
+        "type": "AND",
+        "fanout": [{
+            "id": 174,
+            "dep": false
+        }, {
+            "id": 173,
+            "dep": false
+        }],
+        "fanin": [{
+            "id": 7,
+            "polarity": true,
+            "dep": false
+        }, {
+            "id": 172,
+            "polarity": true,
+            "dep": false
+        }],
+        "$name": "testexpr_to_and [LoopEach/LogicalNet]:1/1",
+        "$ast": "LoopEach",
+        "$sweepable": true,
+        "$loc": {
+            "filename": "abro.hh.mjs",
+            "pos": 102
+        }
+    }]
+}
