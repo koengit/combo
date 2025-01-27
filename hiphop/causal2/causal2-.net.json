@@ -1,0 +1,1918 @@
+{
+    "filename": "causal2.hh.mjs",
+    "sweep": false,
+    "nets": [{
+        "id": 0,
+        "lvl": 0,
+        "type": "REG",
+        "fanout": [{
+            "id": 2,
+            "dep": false
+        }, {
+            "id": 3,
+            "dep": false
+        }, {
+            "id": 85,
+            "dep": false
+        }],
+        "fanin": [{
+            "id": 1,
+            "polarity": true,
+            "dep": false
+        }],
+        "$name": "global_boot_register [Module/RegisterNet]:0/0",
+        "$ast": "Module",
+        "$sweepable": false,
+        "$loc": {
+            "filename": "causal2.hh.mjs",
+            "pos": 80
+        },
+        "value": true
+    }, {
+        "id": 1,
+        "lvl": 0,
+        "type": "FALSE",
+        "fanout": [{
+            "id": 0,
+            "dep": false
+        }, {
+            "id": 4,
+            "dep": false
+        }],
+        "fanin": [],
+        "$name": "global_const0 [Module/LogicalNet]:0/0",
+        "$ast": "Module",
+        "$sweepable": false,
+        "$loc": {
+            "filename": "causal2.hh.mjs",
+            "pos": 80
+        }
+    }, {
+        "id": 2,
+        "lvl": 0,
+        "type": "OR",
+        "fanout": [{
+            "id": 7,
+            "dep": false
+        }],
+        "fanin": [{
+            "id": 0,
+            "polarity": true,
+            "dep": false
+        }],
+        "$name": "global_signals_ready [Module/LogicalNet]:0/0",
+        "$ast": "Module",
+        "$sweepable": true,
+        "$loc": {
+            "filename": "causal2.hh.mjs",
+            "pos": 80
+        }
+    }, {
+        "id": 3,
+        "lvl": 0,
+        "type": "OR",
+        "fanout": [{
+            "id": 24,
+            "dep": false
+        }, {
+            "id": 26,
+            "dep": false
+        }, {
+            "id": 40,
+            "dep": false
+        }, {
+            "id": 42,
+            "dep": false
+        }],
+        "fanin": [{
+            "id": 0,
+            "polarity": false,
+            "dep": false
+        }],
+        "$name": "res_buf [Local/LogicalNet]:0/1",
+        "$ast": "Local",
+        "$sweepable": true,
+        "$loc": {
+            "filename": "causal2.hh.mjs",
+            "pos": 98
+        }
+    }, {
+        "id": 4,
+        "lvl": 0,
+        "type": "OR",
+        "fanout": [{
+            "id": 22,
+            "dep": false
+        }, {
+            "id": 14,
+            "dep": false
+        }, {
+            "id": 38,
+            "dep": false
+        }, {
+            "id": 30,
+            "dep": false
+        }],
+        "fanin": [{
+            "id": 1,
+            "polarity": true,
+            "dep": false
+        }],
+        "$name": "susp_buf [Local/LogicalNet]:0/1",
+        "$ast": "Local",
+        "$sweepable": true,
+        "$loc": {
+            "filename": "causal2.hh.mjs",
+            "pos": 98
+        }
+    }, {
+        "id": 5,
+        "lvl": 0,
+        "type": "FALSE",
+        "fanout": [{
+            "id": 18,
+            "dep": false
+        }, {
+            "id": 34,
+            "dep": false
+        }, {
+            "id": 84,
+            "dep": false
+        }],
+        "fanin": [],
+        "$name": "k1_output_buffer [Local/LogicalNet]:0/1",
+        "$ast": "Local",
+        "$sweepable": true,
+        "$loc": {
+            "filename": "causal2.hh.mjs",
+            "pos": 98
+        }
+    }, {
+        "id": 6,
+        "lvl": 0,
+        "type": "FALSE",
+        "fanout": [{
+            "id": 18,
+            "dep": false
+        }, {
+            "id": 34,
+            "dep": false
+        }],
+        "fanin": [],
+        "$name": "kill_output_buffer [Local/LogicalNet]:0/1",
+        "$ast": "Local",
+        "$sweepable": true,
+        "$loc": {
+            "filename": "causal2.hh.mjs",
+            "pos": 98
+        }
+    }, {
+        "id": 7,
+        "lvl": 0,
+        "type": "OR",
+        "fanout": [{
+            "id": 23,
+            "dep": false
+        }, {
+            "id": 39,
+            "dep": false
+        }],
+        "fanin": [{
+            "id": 2,
+            "polarity": true,
+            "dep": false
+        }],
+        "$name": "go [Local/LogicalNet]:0/1",
+        "$ast": "Local",
+        "$sweepable": true,
+        "$loc": {
+            "filename": "causal2.hh.mjs",
+            "pos": 98
+        }
+    }, {
+        "id": 8,
+        "lvl": 1,
+        "type": "FALSE",
+        "fanout": [{
+            "id": 21,
+            "dep": false
+        }, {
+            "id": 37,
+            "dep": false
+        }, {
+            "id": 84,
+            "dep": false
+        }],
+        "fanin": [],
+        "$name": "k1_output_buffer [Local/LogicalNet]:1/1",
+        "$ast": "Local",
+        "$sweepable": true,
+        "$loc": {
+            "filename": "causal2.hh.mjs",
+            "pos": 98
+        }
+    }, {
+        "id": 9,
+        "lvl": 1,
+        "type": "FALSE",
+        "fanout": [{
+            "id": 21,
+            "dep": false
+        }, {
+            "id": 37,
+            "dep": false
+        }],
+        "fanin": [],
+        "$name": "kill_output_buffer [Local/LogicalNet]:1/1",
+        "$ast": "Local",
+        "$sweepable": true,
+        "$loc": {
+            "filename": "causal2.hh.mjs",
+            "pos": 98
+        }
+    }, {
+        "id": 10,
+        "lvl": 1,
+        "type": "FALSE",
+        "fanout": [{
+            "id": 25,
+            "dep": false
+        }, {
+            "id": 41,
+            "dep": false
+        }],
+        "fanin": [],
+        "$name": "go [Local/LogicalNet]:1/1",
+        "$ast": "Local",
+        "$sweepable": true,
+        "$loc": {
+            "filename": "causal2.hh.mjs",
+            "pos": 98
+        }
+    }, {
+        "id": 11,
+        "lvl": 0,
+        "type": "REG",
+        "fanout": [{
+            "id": 12,
+            "dep": false
+        }, {
+            "id": 14,
+            "dep": false
+        }],
+        "fanin": [{
+            "id": 13,
+            "polarity": true,
+            "dep": false
+        }],
+        "$name": "V_S_C_pre_reg [Local/RegisterNet]:0/1",
+        "$ast": "Local",
+        "$sweepable": false,
+        "$loc": {
+            "filename": "causal2.hh.mjs",
+            "pos": 98
+        },
+        "value": false
+    }, {
+        "id": 12,
+        "lvl": 0,
+        "type": "SIG",
+        "fanout": [],
+        "fanin": [{
+            "id": 11,
+            "polarity": true,
+            "dep": false
+        }],
+        "$name": "V_S_C_pre_gate [Local/SignalNet]:0/1",
+        "$ast": "Local",
+        "$sweepable": true,
+        "$loc": {
+            "filename": "causal2.hh.mjs",
+            "pos": 98
+        },
+        "signame": "V_S_C_pre_gate",
+        "accessibility": "LOCAL"
+    }, {
+        "id": 13,
+        "lvl": 0,
+        "type": "OR",
+        "fanout": [{
+            "id": 11,
+            "dep": false
+        }],
+        "fanin": [{
+            "id": 14,
+            "polarity": true,
+            "dep": false
+        }, {
+            "id": 15,
+            "polarity": true,
+            "dep": false
+        }],
+        "$name": "V_S_C_or_to_pre [Local/LogicalNet]:0/1",
+        "$ast": "Local",
+        "$sweepable": true,
+        "$loc": {
+            "filename": "causal2.hh.mjs",
+            "pos": 98
+        }
+    }, {
+        "id": 14,
+        "lvl": 0,
+        "type": "AND",
+        "fanout": [{
+            "id": 13,
+            "dep": false
+        }],
+        "fanin": [{
+            "id": 11,
+            "polarity": true,
+            "dep": false
+        }, {
+            "id": 4,
+            "polarity": true,
+            "dep": false
+        }],
+        "$name": "V_S_C_pre_and_susp [Local/LogicalNet]:0/1",
+        "$ast": "Local",
+        "$sweepable": true,
+        "$loc": {
+            "filename": "causal2.hh.mjs",
+            "pos": 98
+        }
+    }, {
+        "id": 15,
+        "lvl": 0,
+        "type": "OR",
+        "fanout": [{
+            "id": 13,
+            "dep": false
+        }],
+        "fanin": [{
+            "id": 18,
+            "polarity": true,
+            "dep": false
+        }, {
+            "id": 22,
+            "polarity": true,
+            "dep": false
+        }],
+        "$name": "V_S_C_to_pre_not_susp [Local/LogicalNet]:0/1",
+        "$ast": "Local",
+        "$sweepable": true,
+        "$loc": {
+            "filename": "causal2.hh.mjs",
+            "pos": 98
+        }
+    }, {
+        "id": 16,
+        "lvl": 0,
+        "type": "SIG",
+        "fanout": [{
+            "id": 18,
+            "dep": false
+        }, {
+            "id": 50,
+            "dep": true
+        }],
+        "fanin": [{
+            "id": 61,
+            "polarity": true,
+            "dep": false
+        }],
+        "$name": "V_S_C [Local/SignalNet]:0/1",
+        "$ast": "Local",
+        "$sweepable": true,
+        "$loc": {
+            "filename": "causal2.hh.mjs",
+            "pos": 98
+        },
+        "signame": "V_S_C",
+        "accessibility": "LOCAL"
+    }, {
+        "id": 17,
+        "lvl": 0,
+        "type": "TRUE",
+        "fanout": [],
+        "fanin": [],
+        "$name": "V_S_C_dep_local [Local/LogicalNet]:0/1",
+        "$ast": "Local",
+        "$sweepable": true,
+        "$loc": {
+            "filename": "causal2.hh.mjs",
+            "pos": 98
+        }
+    }, {
+        "id": 18,
+        "lvl": 0,
+        "type": "AND",
+        "fanout": [{
+            "id": 15,
+            "dep": false
+        }],
+        "fanin": [{
+            "id": 16,
+            "polarity": true,
+            "dep": false
+        }, {
+            "id": 5,
+            "polarity": true,
+            "dep": false
+        }, {
+            "id": 6,
+            "polarity": false,
+            "dep": false
+        }],
+        "$name": "V_S_C_to_pre_p [Local/LogicalNet]:0/1",
+        "$ast": "Local",
+        "$sweepable": true,
+        "$loc": {
+            "filename": "causal2.hh.mjs",
+            "pos": 98
+        }
+    }, {
+        "id": 19,
+        "lvl": 1,
+        "type": "SIG",
+        "fanout": [{
+            "id": 21,
+            "dep": false
+        }, {
+            "id": 54,
+            "dep": true
+        }],
+        "fanin": [{
+            "id": 62,
+            "polarity": true,
+            "dep": false
+        }],
+        "$name": "V_S_C [Local/SignalNet]:1/1",
+        "$ast": "Local",
+        "$sweepable": true,
+        "$loc": {
+            "filename": "causal2.hh.mjs",
+            "pos": 98
+        },
+        "signame": "V_S_C",
+        "accessibility": "LOCAL"
+    }, {
+        "id": 20,
+        "lvl": 1,
+        "type": "TRUE",
+        "fanout": [],
+        "fanin": [],
+        "$name": "V_S_C_dep_local [Local/LogicalNet]:1/1",
+        "$ast": "Local",
+        "$sweepable": true,
+        "$loc": {
+            "filename": "causal2.hh.mjs",
+            "pos": 98
+        }
+    }, {
+        "id": 21,
+        "lvl": 1,
+        "type": "AND",
+        "fanout": [{
+            "id": 22,
+            "dep": false
+        }],
+        "fanin": [{
+            "id": 19,
+            "polarity": true,
+            "dep": false
+        }, {
+            "id": 8,
+            "polarity": true,
+            "dep": false
+        }, {
+            "id": 9,
+            "polarity": false,
+            "dep": false
+        }],
+        "$name": "V_S_C_to_pre_p [Local/LogicalNet]:1/1",
+        "$ast": "Local",
+        "$sweepable": true,
+        "$loc": {
+            "filename": "causal2.hh.mjs",
+            "pos": 98
+        }
+    }, {
+        "id": 22,
+        "lvl": 0,
+        "type": "AND",
+        "fanout": [{
+            "id": 15,
+            "dep": false
+        }],
+        "fanin": [{
+            "id": 21,
+            "polarity": true,
+            "dep": false
+        }, {
+            "id": 4,
+            "polarity": false,
+            "dep": false
+        }],
+        "$name": "V_S_C_to_pre_q_and_susp [Local/LogicalNet]:0/1",
+        "$ast": "Local",
+        "$sweepable": true,
+        "$loc": {
+            "filename": "causal2.hh.mjs",
+            "pos": 98
+        }
+    }, {
+        "id": 23,
+        "lvl": 0,
+        "type": "ACTION",
+        "fanout": [{
+            "id": 47,
+            "dep": false
+        }],
+        "fanin": [{
+            "id": 7,
+            "polarity": true,
+            "dep": false
+        }],
+        "$name": "init [Local/ActionNet]:0/1",
+        "$ast": "Local",
+        "$sweepable": true,
+        "$loc": {
+            "filename": "causal2.hh.mjs",
+            "pos": 98
+        },
+        "$signals": "",
+        "$action": "signal.create_scope.call( \t\t     this, s, l);"
+    }, {
+        "id": 24,
+        "lvl": 0,
+        "type": "ACTION",
+        "fanout": [],
+        "fanin": [{
+            "id": 3,
+            "polarity": true,
+            "dep": false
+        }],
+        "$name": "reinit [Local/ActionNet]:0/1",
+        "$ast": "Local",
+        "$sweepable": true,
+        "$loc": {
+            "filename": "causal2.hh.mjs",
+            "pos": 98
+        },
+        "$signals": "",
+        "$action": "signal.resume_scope.call( \t\t     this, s, l);"
+    }, {
+        "id": 25,
+        "lvl": 1,
+        "type": "ACTION",
+        "fanout": [{
+            "id": 51,
+            "dep": false
+        }],
+        "fanin": [{
+            "id": 10,
+            "polarity": true,
+            "dep": false
+        }],
+        "$name": "init [Local/ActionNet]:1/1",
+        "$ast": "Local",
+        "$sweepable": true,
+        "$loc": {
+            "filename": "causal2.hh.mjs",
+            "pos": 98
+        },
+        "$signals": "",
+        "$action": "signal.create_scope.call( \t\t     this, s, l);"
+    }, {
+        "id": 26,
+        "lvl": 1,
+        "type": "ACTION",
+        "fanout": [],
+        "fanin": [{
+            "id": 3,
+            "polarity": true,
+            "dep": false
+        }],
+        "$name": "reinit [Local/ActionNet]:1/1",
+        "$ast": "Local",
+        "$sweepable": true,
+        "$loc": {
+            "filename": "causal2.hh.mjs",
+            "pos": 98
+        },
+        "$signals": "",
+        "$action": "signal.resume_scope.call( \t\t     this, s, l);"
+    }, {
+        "id": 27,
+        "lvl": 0,
+        "type": "REG",
+        "fanout": [{
+            "id": 28,
+            "dep": false
+        }, {
+            "id": 30,
+            "dep": false
+        }],
+        "fanin": [{
+            "id": 29,
+            "polarity": true,
+            "dep": false
+        }],
+        "$name": "V_S_i_pre_reg [Local/RegisterNet]:0/1",
+        "$ast": "Local",
+        "$sweepable": false,
+        "$loc": {
+            "filename": "causal2.hh.mjs",
+            "pos": 98
+        },
+        "value": false
+    }, {
+        "id": 28,
+        "lvl": 0,
+        "type": "SIG",
+        "fanout": [],
+        "fanin": [{
+            "id": 27,
+            "polarity": true,
+            "dep": false
+        }],
+        "$name": "V_S_i_pre_gate [Local/SignalNet]:0/1",
+        "$ast": "Local",
+        "$sweepable": true,
+        "$loc": {
+            "filename": "causal2.hh.mjs",
+            "pos": 98
+        },
+        "signame": "V_S_i_pre_gate",
+        "accessibility": "LOCAL"
+    }, {
+        "id": 29,
+        "lvl": 0,
+        "type": "OR",
+        "fanout": [{
+            "id": 27,
+            "dep": false
+        }],
+        "fanin": [{
+            "id": 30,
+            "polarity": true,
+            "dep": false
+        }, {
+            "id": 31,
+            "polarity": true,
+            "dep": false
+        }],
+        "$name": "V_S_i_or_to_pre [Local/LogicalNet]:0/1",
+        "$ast": "Local",
+        "$sweepable": true,
+        "$loc": {
+            "filename": "causal2.hh.mjs",
+            "pos": 98
+        }
+    }, {
+        "id": 30,
+        "lvl": 0,
+        "type": "AND",
+        "fanout": [{
+            "id": 29,
+            "dep": false
+        }],
+        "fanin": [{
+            "id": 27,
+            "polarity": true,
+            "dep": false
+        }, {
+            "id": 4,
+            "polarity": true,
+            "dep": false
+        }],
+        "$name": "V_S_i_pre_and_susp [Local/LogicalNet]:0/1",
+        "$ast": "Local",
+        "$sweepable": true,
+        "$loc": {
+            "filename": "causal2.hh.mjs",
+            "pos": 98
+        }
+    }, {
+        "id": 31,
+        "lvl": 0,
+        "type": "OR",
+        "fanout": [{
+            "id": 29,
+            "dep": false
+        }],
+        "fanin": [{
+            "id": 34,
+            "polarity": true,
+            "dep": false
+        }, {
+            "id": 38,
+            "polarity": true,
+            "dep": false
+        }],
+        "$name": "V_S_i_to_pre_not_susp [Local/LogicalNet]:0/1",
+        "$ast": "Local",
+        "$sweepable": true,
+        "$loc": {
+            "filename": "causal2.hh.mjs",
+            "pos": 98
+        }
+    }, {
+        "id": 32,
+        "lvl": 0,
+        "type": "SIG",
+        "fanout": [{
+            "id": 34,
+            "dep": false
+        }, {
+            "id": 68,
+            "dep": true
+        }],
+        "fanin": [],
+        "$name": "V_S_i [Local/SignalNet]:0/1",
+        "$ast": "Local",
+        "$sweepable": true,
+        "$loc": {
+            "filename": "causal2.hh.mjs",
+            "pos": 98
+        },
+        "signame": "V_S_i",
+        "accessibility": "LOCAL"
+    }, {
+        "id": 33,
+        "lvl": 0,
+        "type": "TRUE",
+        "fanout": [],
+        "fanin": [],
+        "$name": "V_S_i_dep_local [Local/LogicalNet]:0/1",
+        "$ast": "Local",
+        "$sweepable": true,
+        "$loc": {
+            "filename": "causal2.hh.mjs",
+            "pos": 98
+        }
+    }, {
+        "id": 34,
+        "lvl": 0,
+        "type": "AND",
+        "fanout": [{
+            "id": 31,
+            "dep": false
+        }],
+        "fanin": [{
+            "id": 32,
+            "polarity": true,
+            "dep": false
+        }, {
+            "id": 5,
+            "polarity": true,
+            "dep": false
+        }, {
+            "id": 6,
+            "polarity": false,
+            "dep": false
+        }],
+        "$name": "V_S_i_to_pre_p [Local/LogicalNet]:0/1",
+        "$ast": "Local",
+        "$sweepable": true,
+        "$loc": {
+            "filename": "causal2.hh.mjs",
+            "pos": 98
+        }
+    }, {
+        "id": 35,
+        "lvl": 1,
+        "type": "SIG",
+        "fanout": [{
+            "id": 37,
+            "dep": false
+        }, {
+            "id": 72,
+            "dep": true
+        }],
+        "fanin": [],
+        "$name": "V_S_i [Local/SignalNet]:1/1",
+        "$ast": "Local",
+        "$sweepable": true,
+        "$loc": {
+            "filename": "causal2.hh.mjs",
+            "pos": 98
+        },
+        "signame": "V_S_i",
+        "accessibility": "LOCAL"
+    }, {
+        "id": 36,
+        "lvl": 1,
+        "type": "TRUE",
+        "fanout": [],
+        "fanin": [],
+        "$name": "V_S_i_dep_local [Local/LogicalNet]:1/1",
+        "$ast": "Local",
+        "$sweepable": true,
+        "$loc": {
+            "filename": "causal2.hh.mjs",
+            "pos": 98
+        }
+    }, {
+        "id": 37,
+        "lvl": 1,
+        "type": "AND",
+        "fanout": [{
+            "id": 38,
+            "dep": false
+        }],
+        "fanin": [{
+            "id": 35,
+            "polarity": true,
+            "dep": false
+        }, {
+            "id": 8,
+            "polarity": true,
+            "dep": false
+        }, {
+            "id": 9,
+            "polarity": false,
+            "dep": false
+        }],
+        "$name": "V_S_i_to_pre_p [Local/LogicalNet]:1/1",
+        "$ast": "Local",
+        "$sweepable": true,
+        "$loc": {
+            "filename": "causal2.hh.mjs",
+            "pos": 98
+        }
+    }, {
+        "id": 38,
+        "lvl": 0,
+        "type": "AND",
+        "fanout": [{
+            "id": 31,
+            "dep": false
+        }],
+        "fanin": [{
+            "id": 37,
+            "polarity": true,
+            "dep": false
+        }, {
+            "id": 4,
+            "polarity": false,
+            "dep": false
+        }],
+        "$name": "V_S_i_to_pre_q_and_susp [Local/LogicalNet]:0/1",
+        "$ast": "Local",
+        "$sweepable": true,
+        "$loc": {
+            "filename": "causal2.hh.mjs",
+            "pos": 98
+        }
+    }, {
+        "id": 39,
+        "lvl": 0,
+        "type": "ACTION",
+        "fanout": [],
+        "fanin": [{
+            "id": 7,
+            "polarity": true,
+            "dep": false
+        }],
+        "$name": "init [Local/ActionNet]:0/1",
+        "$ast": "Local",
+        "$sweepable": true,
+        "$loc": {
+            "filename": "causal2.hh.mjs",
+            "pos": 98
+        },
+        "$signals": "",
+        "$action": "signal.create_scope.call( \t\t     this, s, l);"
+    }, {
+        "id": 40,
+        "lvl": 0,
+        "type": "ACTION",
+        "fanout": [],
+        "fanin": [{
+            "id": 3,
+            "polarity": true,
+            "dep": false
+        }],
+        "$name": "reinit [Local/ActionNet]:0/1",
+        "$ast": "Local",
+        "$sweepable": true,
+        "$loc": {
+            "filename": "causal2.hh.mjs",
+            "pos": 98
+        },
+        "$signals": "",
+        "$action": "signal.resume_scope.call( \t\t     this, s, l);"
+    }, {
+        "id": 41,
+        "lvl": 1,
+        "type": "ACTION",
+        "fanout": [],
+        "fanin": [{
+            "id": 10,
+            "polarity": true,
+            "dep": false
+        }],
+        "$name": "init [Local/ActionNet]:1/1",
+        "$ast": "Local",
+        "$sweepable": true,
+        "$loc": {
+            "filename": "causal2.hh.mjs",
+            "pos": 98
+        },
+        "$signals": "",
+        "$action": "signal.create_scope.call( \t\t     this, s, l);"
+    }, {
+        "id": 42,
+        "lvl": 1,
+        "type": "ACTION",
+        "fanout": [],
+        "fanin": [{
+            "id": 3,
+            "polarity": true,
+            "dep": false
+        }],
+        "$name": "reinit [Local/ActionNet]:1/1",
+        "$ast": "Local",
+        "$sweepable": true,
+        "$loc": {
+            "filename": "causal2.hh.mjs",
+            "pos": 98
+        },
+        "$signals": "",
+        "$action": "signal.resume_scope.call( \t\t     this, s, l);"
+    }, {
+        "id": 43,
+        "lvl": 0,
+        "type": "OR",
+        "fanout": [{
+            "id": 55,
+            "dep": false
+        }],
+        "fanin": [{
+            "id": 48,
+            "polarity": true,
+            "dep": false
+        }],
+        "$name": "go [Nothing/LogicalNet]:0/1",
+        "$ast": "Nothing",
+        "$sweepable": true,
+        "$loc": {
+            "filename": "causal2.hh.mjs",
+            "pos": 151
+        }
+    }, {
+        "id": 44,
+        "lvl": 1,
+        "type": "OR",
+        "fanout": [{
+            "id": 56,
+            "dep": false
+        }],
+        "fanin": [{
+            "id": 52,
+            "polarity": true,
+            "dep": false
+        }],
+        "$name": "go [Nothing/LogicalNet]:1/1",
+        "$ast": "Nothing",
+        "$sweepable": true,
+        "$loc": {
+            "filename": "causal2.hh.mjs",
+            "pos": 151
+        }
+    }, {
+        "id": 45,
+        "lvl": 0,
+        "type": "OR",
+        "fanout": [{
+            "id": 57,
+            "dep": false
+        }],
+        "fanin": [{
+            "id": 49,
+            "polarity": true,
+            "dep": false
+        }],
+        "$name": "go [Nothing/LogicalNet]:0/1",
+        "$ast": "Nothing",
+        "$sweepable": true,
+        "$loc": {
+            "filename": "causal2.hh.mjs",
+            "pos": 123
+        }
+    }, {
+        "id": 46,
+        "lvl": 1,
+        "type": "OR",
+        "fanout": [{
+            "id": 58,
+            "dep": false
+        }],
+        "fanin": [{
+            "id": 53,
+            "polarity": true,
+            "dep": false
+        }],
+        "$name": "go [Nothing/LogicalNet]:1/1",
+        "$ast": "Nothing",
+        "$sweepable": true,
+        "$loc": {
+            "filename": "causal2.hh.mjs",
+            "pos": 123
+        }
+    }, {
+        "id": 47,
+        "lvl": 0,
+        "type": "OR",
+        "fanout": [{
+            "id": 50,
+            "dep": false
+        }, {
+            "id": 48,
+            "dep": false
+        }, {
+            "id": 49,
+            "dep": false
+        }],
+        "fanin": [{
+            "id": 23,
+            "polarity": true,
+            "dep": false
+        }],
+        "$name": "go [If/LogicalNet]:0/1",
+        "$ast": "If",
+        "$sweepable": true,
+        "$loc": {
+            "filename": "causal2.hh.mjs",
+            "pos": 123
+        }
+    }, {
+        "id": 48,
+        "lvl": 0,
+        "type": "AND",
+        "fanout": [{
+            "id": 43,
+            "dep": false
+        }],
+        "fanin": [{
+            "id": 50,
+            "polarity": true,
+            "dep": false
+        }, {
+            "id": 47,
+            "polarity": true,
+            "dep": false
+        }],
+        "$name": "and_then [If/LogicalNet]:0/1",
+        "$ast": "If",
+        "$sweepable": true,
+        "$loc": {
+            "filename": "causal2.hh.mjs",
+            "pos": 123
+        }
+    }, {
+        "id": 49,
+        "lvl": 0,
+        "type": "AND",
+        "fanout": [{
+            "id": 45,
+            "dep": false
+        }],
+        "fanin": [{
+            "id": 50,
+            "polarity": false,
+            "dep": false
+        }, {
+            "id": 47,
+            "polarity": true,
+            "dep": false
+        }],
+        "$name": "and_else [If/LogicalNet]:0/1",
+        "$ast": "If",
+        "$sweepable": true,
+        "$loc": {
+            "filename": "causal2.hh.mjs",
+            "pos": 123
+        }
+    }, {
+        "id": 50,
+        "lvl": 0,
+        "type": "ACTION",
+        "fanout": [{
+            "id": 48,
+            "dep": false
+        }, {
+            "id": 49,
+            "dep": false
+        }],
+        "fanin": [{
+            "id": 16,
+            "polarity": true,
+            "dep": true
+        }, {
+            "id": 47,
+            "polarity": true,
+            "dep": false
+        }],
+        "$name": "testexpr [If/TestExpressionNet]:0/1",
+        "$ast": "If",
+        "$sweepable": true,
+        "$loc": {
+            "filename": "causal2.hh.mjs",
+            "pos": 123
+        },
+        "$signals": "V_S_C?",
+        "$action": "const V_S_C=this.V_S_C;return V_S_C.now;"
+    }, {
+        "id": 51,
+        "lvl": 1,
+        "type": "OR",
+        "fanout": [{
+            "id": 54,
+            "dep": false
+        }, {
+            "id": 52,
+            "dep": false
+        }, {
+            "id": 53,
+            "dep": false
+        }],
+        "fanin": [{
+            "id": 25,
+            "polarity": true,
+            "dep": false
+        }],
+        "$name": "go [If/LogicalNet]:1/1",
+        "$ast": "If",
+        "$sweepable": true,
+        "$loc": {
+            "filename": "causal2.hh.mjs",
+            "pos": 123
+        }
+    }, {
+        "id": 52,
+        "lvl": 1,
+        "type": "AND",
+        "fanout": [{
+            "id": 44,
+            "dep": false
+        }],
+        "fanin": [{
+            "id": 54,
+            "polarity": true,
+            "dep": false
+        }, {
+            "id": 51,
+            "polarity": true,
+            "dep": false
+        }],
+        "$name": "and_then [If/LogicalNet]:1/1",
+        "$ast": "If",
+        "$sweepable": true,
+        "$loc": {
+            "filename": "causal2.hh.mjs",
+            "pos": 123
+        }
+    }, {
+        "id": 53,
+        "lvl": 1,
+        "type": "AND",
+        "fanout": [{
+            "id": 46,
+            "dep": false
+        }],
+        "fanin": [{
+            "id": 54,
+            "polarity": false,
+            "dep": false
+        }, {
+            "id": 51,
+            "polarity": true,
+            "dep": false
+        }],
+        "$name": "and_else [If/LogicalNet]:1/1",
+        "$ast": "If",
+        "$sweepable": true,
+        "$loc": {
+            "filename": "causal2.hh.mjs",
+            "pos": 123
+        }
+    }, {
+        "id": 54,
+        "lvl": 1,
+        "type": "ACTION",
+        "fanout": [{
+            "id": 52,
+            "dep": false
+        }, {
+            "id": 53,
+            "dep": false
+        }],
+        "fanin": [{
+            "id": 19,
+            "polarity": true,
+            "dep": true
+        }, {
+            "id": 51,
+            "polarity": true,
+            "dep": false
+        }],
+        "$name": "testexpr [If/TestExpressionNet]:1/1",
+        "$ast": "If",
+        "$sweepable": true,
+        "$loc": {
+            "filename": "causal2.hh.mjs",
+            "pos": 123
+        },
+        "$signals": "V_S_C?",
+        "$action": "const V_S_C=this.V_S_C;return V_S_C.now;"
+    }, {
+        "id": 55,
+        "lvl": 0,
+        "type": "OR",
+        "fanout": [{
+            "id": 59,
+            "dep": false
+        }],
+        "fanin": [{
+            "id": 43,
+            "polarity": true,
+            "dep": false
+        }],
+        "$name": "k0_buffer [If/LogicalNet]:0/1",
+        "$ast": "If",
+        "$sweepable": true,
+        "$loc": {
+            "filename": "causal2.hh.mjs",
+            "pos": 123
+        }
+    }, {
+        "id": 56,
+        "lvl": 1,
+        "type": "OR",
+        "fanout": [{
+            "id": 60,
+            "dep": false
+        }],
+        "fanin": [{
+            "id": 44,
+            "polarity": true,
+            "dep": false
+        }],
+        "$name": "k0_buffer [If/LogicalNet]:1/1",
+        "$ast": "If",
+        "$sweepable": true,
+        "$loc": {
+            "filename": "causal2.hh.mjs",
+            "pos": 123
+        }
+    }, {
+        "id": 57,
+        "lvl": 0,
+        "type": "OR",
+        "fanout": [{
+            "id": 59,
+            "dep": false
+        }],
+        "fanin": [{
+            "id": 45,
+            "polarity": true,
+            "dep": false
+        }],
+        "$name": "k0_buffer [If/LogicalNet]:0/1",
+        "$ast": "If",
+        "$sweepable": true,
+        "$loc": {
+            "filename": "causal2.hh.mjs",
+            "pos": 123
+        }
+    }, {
+        "id": 58,
+        "lvl": 1,
+        "type": "OR",
+        "fanout": [{
+            "id": 60,
+            "dep": false
+        }],
+        "fanin": [{
+            "id": 46,
+            "polarity": true,
+            "dep": false
+        }],
+        "$name": "k0_buffer [If/LogicalNet]:1/1",
+        "$ast": "If",
+        "$sweepable": true,
+        "$loc": {
+            "filename": "causal2.hh.mjs",
+            "pos": 123
+        }
+    }, {
+        "id": 59,
+        "lvl": "0_union_buffer",
+        "type": "OR",
+        "fanout": [{
+            "id": 65,
+            "dep": false
+        }],
+        "fanin": [{
+            "id": 55,
+            "polarity": true,
+            "dep": false
+        }, {
+            "id": 57,
+            "polarity": true,
+            "dep": false
+        }],
+        "$name": "k [If/LogicalNet]:0_union_buffer/1",
+        "$ast": "If",
+        "$sweepable": true,
+        "$loc": {
+            "filename": "causal2.hh.mjs",
+            "pos": 123
+        }
+    }, {
+        "id": 60,
+        "lvl": "0_union_buffer",
+        "type": "OR",
+        "fanout": [{
+            "id": 69,
+            "dep": false
+        }],
+        "fanin": [{
+            "id": 56,
+            "polarity": true,
+            "dep": false
+        }, {
+            "id": 58,
+            "polarity": true,
+            "dep": false
+        }],
+        "$name": "k [If/LogicalNet]:0_union_buffer/1",
+        "$ast": "If",
+        "$sweepable": true,
+        "$loc": {
+            "filename": "causal2.hh.mjs",
+            "pos": 123
+        }
+    }, {
+        "id": 61,
+        "lvl": 0,
+        "type": "OR",
+        "fanout": [{
+            "id": 16,
+            "dep": false
+        }, {
+            "id": 73,
+            "dep": false
+        }],
+        "fanin": [{
+            "id": 66,
+            "polarity": true,
+            "dep": false
+        }],
+        "$name": "V_S_C_go [Emit/LogicalNet]:0/1",
+        "$ast": "Emit",
+        "$sweepable": true,
+        "$loc": {
+            "filename": "causal2.hh.mjs",
+            "pos": 184
+        }
+    }, {
+        "id": 62,
+        "lvl": 1,
+        "type": "OR",
+        "fanout": [{
+            "id": 19,
+            "dep": false
+        }, {
+            "id": 74,
+            "dep": false
+        }],
+        "fanin": [{
+            "id": 70,
+            "polarity": true,
+            "dep": false
+        }],
+        "$name": "V_S_C_go [Emit/LogicalNet]:1/1",
+        "$ast": "Emit",
+        "$sweepable": true,
+        "$loc": {
+            "filename": "causal2.hh.mjs",
+            "pos": 184
+        }
+    }, {
+        "id": 63,
+        "lvl": 0,
+        "type": "OR",
+        "fanout": [{
+            "id": 75,
+            "dep": false
+        }],
+        "fanin": [{
+            "id": 67,
+            "polarity": true,
+            "dep": false
+        }],
+        "$name": "go [Nothing/LogicalNet]:0/1",
+        "$ast": "Nothing",
+        "$sweepable": true,
+        "$loc": {
+            "filename": "causal2.hh.mjs",
+            "pos": 156
+        }
+    }, {
+        "id": 64,
+        "lvl": 1,
+        "type": "OR",
+        "fanout": [{
+            "id": 76,
+            "dep": false
+        }],
+        "fanin": [{
+            "id": 71,
+            "polarity": true,
+            "dep": false
+        }],
+        "$name": "go [Nothing/LogicalNet]:1/1",
+        "$ast": "Nothing",
+        "$sweepable": true,
+        "$loc": {
+            "filename": "causal2.hh.mjs",
+            "pos": 156
+        }
+    }, {
+        "id": 65,
+        "lvl": 0,
+        "type": "OR",
+        "fanout": [{
+            "id": 68,
+            "dep": false
+        }, {
+            "id": 66,
+            "dep": false
+        }, {
+            "id": 67,
+            "dep": false
+        }],
+        "fanin": [{
+            "id": 59,
+            "polarity": true,
+            "dep": false
+        }],
+        "$name": "go [If/LogicalNet]:0/1",
+        "$ast": "If",
+        "$sweepable": true,
+        "$loc": {
+            "filename": "causal2.hh.mjs",
+            "pos": 156
+        }
+    }, {
+        "id": 66,
+        "lvl": 0,
+        "type": "AND",
+        "fanout": [{
+            "id": 61,
+            "dep": false
+        }],
+        "fanin": [{
+            "id": 68,
+            "polarity": true,
+            "dep": false
+        }, {
+            "id": 65,
+            "polarity": true,
+            "dep": false
+        }],
+        "$name": "and_then [If/LogicalNet]:0/1",
+        "$ast": "If",
+        "$sweepable": true,
+        "$loc": {
+            "filename": "causal2.hh.mjs",
+            "pos": 156
+        }
+    }, {
+        "id": 67,
+        "lvl": 0,
+        "type": "AND",
+        "fanout": [{
+            "id": 63,
+            "dep": false
+        }],
+        "fanin": [{
+            "id": 68,
+            "polarity": false,
+            "dep": false
+        }, {
+            "id": 65,
+            "polarity": true,
+            "dep": false
+        }],
+        "$name": "and_else [If/LogicalNet]:0/1",
+        "$ast": "If",
+        "$sweepable": true,
+        "$loc": {
+            "filename": "causal2.hh.mjs",
+            "pos": 156
+        }
+    }, {
+        "id": 68,
+        "lvl": 0,
+        "type": "ACTION",
+        "fanout": [{
+            "id": 66,
+            "dep": false
+        }, {
+            "id": 67,
+            "dep": false
+        }],
+        "fanin": [{
+            "id": 32,
+            "polarity": true,
+            "dep": true
+        }, {
+            "id": 65,
+            "polarity": true,
+            "dep": false
+        }],
+        "$name": "testexpr [If/TestExpressionNet]:0/1",
+        "$ast": "If",
+        "$sweepable": true,
+        "$loc": {
+            "filename": "causal2.hh.mjs",
+            "pos": 156
+        },
+        "$signals": "V_S_i?",
+        "$action": "const V_S_i=this.V_S_i;return V_S_i.now;"
+    }, {
+        "id": 69,
+        "lvl": 1,
+        "type": "OR",
+        "fanout": [{
+            "id": 72,
+            "dep": false
+        }, {
+            "id": 70,
+            "dep": false
+        }, {
+            "id": 71,
+            "dep": false
+        }],
+        "fanin": [{
+            "id": 60,
+            "polarity": true,
+            "dep": false
+        }],
+        "$name": "go [If/LogicalNet]:1/1",
+        "$ast": "If",
+        "$sweepable": true,
+        "$loc": {
+            "filename": "causal2.hh.mjs",
+            "pos": 156
+        }
+    }, {
+        "id": 70,
+        "lvl": 1,
+        "type": "AND",
+        "fanout": [{
+            "id": 62,
+            "dep": false
+        }],
+        "fanin": [{
+            "id": 72,
+            "polarity": true,
+            "dep": false
+        }, {
+            "id": 69,
+            "polarity": true,
+            "dep": false
+        }],
+        "$name": "and_then [If/LogicalNet]:1/1",
+        "$ast": "If",
+        "$sweepable": true,
+        "$loc": {
+            "filename": "causal2.hh.mjs",
+            "pos": 156
+        }
+    }, {
+        "id": 71,
+        "lvl": 1,
+        "type": "AND",
+        "fanout": [{
+            "id": 64,
+            "dep": false
+        }],
+        "fanin": [{
+            "id": 72,
+            "polarity": false,
+            "dep": false
+        }, {
+            "id": 69,
+            "polarity": true,
+            "dep": false
+        }],
+        "$name": "and_else [If/LogicalNet]:1/1",
+        "$ast": "If",
+        "$sweepable": true,
+        "$loc": {
+            "filename": "causal2.hh.mjs",
+            "pos": 156
+        }
+    }, {
+        "id": 72,
+        "lvl": 1,
+        "type": "ACTION",
+        "fanout": [{
+            "id": 70,
+            "dep": false
+        }, {
+            "id": 71,
+            "dep": false
+        }],
+        "fanin": [{
+            "id": 35,
+            "polarity": true,
+            "dep": true
+        }, {
+            "id": 69,
+            "polarity": true,
+            "dep": false
+        }],
+        "$name": "testexpr [If/TestExpressionNet]:1/1",
+        "$ast": "If",
+        "$sweepable": true,
+        "$loc": {
+            "filename": "causal2.hh.mjs",
+            "pos": 156
+        },
+        "$signals": "V_S_i?",
+        "$action": "const V_S_i=this.V_S_i;return V_S_i.now;"
+    }, {
+        "id": 73,
+        "lvl": 0,
+        "type": "OR",
+        "fanout": [{
+            "id": 77,
+            "dep": false
+        }],
+        "fanin": [{
+            "id": 61,
+            "polarity": true,
+            "dep": false
+        }],
+        "$name": "k0_buffer [If/LogicalNet]:0/1",
+        "$ast": "If",
+        "$sweepable": true,
+        "$loc": {
+            "filename": "causal2.hh.mjs",
+            "pos": 156
+        }
+    }, {
+        "id": 74,
+        "lvl": 1,
+        "type": "OR",
+        "fanout": [{
+            "id": 78,
+            "dep": false
+        }],
+        "fanin": [{
+            "id": 62,
+            "polarity": true,
+            "dep": false
+        }],
+        "$name": "k0_buffer [If/LogicalNet]:1/1",
+        "$ast": "If",
+        "$sweepable": true,
+        "$loc": {
+            "filename": "causal2.hh.mjs",
+            "pos": 156
+        }
+    }, {
+        "id": 75,
+        "lvl": 0,
+        "type": "OR",
+        "fanout": [{
+            "id": 77,
+            "dep": false
+        }],
+        "fanin": [{
+            "id": 63,
+            "polarity": true,
+            "dep": false
+        }],
+        "$name": "k0_buffer [If/LogicalNet]:0/1",
+        "$ast": "If",
+        "$sweepable": true,
+        "$loc": {
+            "filename": "causal2.hh.mjs",
+            "pos": 156
+        }
+    }, {
+        "id": 76,
+        "lvl": 1,
+        "type": "OR",
+        "fanout": [{
+            "id": 78,
+            "dep": false
+        }],
+        "fanin": [{
+            "id": 64,
+            "polarity": true,
+            "dep": false
+        }],
+        "$name": "k0_buffer [If/LogicalNet]:1/1",
+        "$ast": "If",
+        "$sweepable": true,
+        "$loc": {
+            "filename": "causal2.hh.mjs",
+            "pos": 156
+        }
+    }, {
+        "id": 77,
+        "lvl": "0_union_buffer",
+        "type": "OR",
+        "fanout": [{
+            "id": 79,
+            "dep": false
+        }],
+        "fanin": [{
+            "id": 73,
+            "polarity": true,
+            "dep": false
+        }, {
+            "id": 75,
+            "polarity": true,
+            "dep": false
+        }],
+        "$name": "k [If/LogicalNet]:0_union_buffer/1",
+        "$ast": "If",
+        "$sweepable": true,
+        "$loc": {
+            "filename": "causal2.hh.mjs",
+            "pos": 156
+        }
+    }, {
+        "id": 78,
+        "lvl": "0_union_buffer",
+        "type": "OR",
+        "fanout": [{
+            "id": 80,
+            "dep": false
+        }],
+        "fanin": [{
+            "id": 74,
+            "polarity": true,
+            "dep": false
+        }, {
+            "id": 76,
+            "polarity": true,
+            "dep": false
+        }],
+        "$name": "k [If/LogicalNet]:0_union_buffer/1",
+        "$ast": "If",
+        "$sweepable": true,
+        "$loc": {
+            "filename": "causal2.hh.mjs",
+            "pos": 156
+        }
+    }, {
+        "id": 79,
+        "lvl": 0,
+        "type": "OR",
+        "fanout": [{
+            "id": 81,
+            "dep": false
+        }],
+        "fanin": [{
+            "id": 77,
+            "polarity": true,
+            "dep": false
+        }],
+        "$name": "k0_buffer [Sequence/LogicalNet]:0/1",
+        "$ast": "Sequence",
+        "$sweepable": true,
+        "$loc": {
+            "filename": "causal2.hh.mjs",
+            "pos": 123
+        }
+    }, {
+        "id": 80,
+        "lvl": 1,
+        "type": "OR",
+        "fanout": [{
+            "id": 82,
+            "dep": false
+        }],
+        "fanin": [{
+            "id": 78,
+            "polarity": true,
+            "dep": false
+        }],
+        "$name": "k0_buffer [Sequence/LogicalNet]:1/1",
+        "$ast": "Sequence",
+        "$sweepable": true,
+        "$loc": {
+            "filename": "causal2.hh.mjs",
+            "pos": 123
+        }
+    }, {
+        "id": 81,
+        "lvl": 0,
+        "type": "OR",
+        "fanout": [{
+            "id": 83,
+            "dep": false
+        }],
+        "fanin": [{
+            "id": 79,
+            "polarity": true,
+            "dep": false
+        }],
+        "$name": "k0_buffer [Local/LogicalNet]:0/1",
+        "$ast": "Local",
+        "$sweepable": true,
+        "$loc": {
+            "filename": "causal2.hh.mjs",
+            "pos": 98
+        }
+    }, {
+        "id": 82,
+        "lvl": 1,
+        "type": "OR",
+        "fanout": [{
+            "id": 83,
+            "dep": false
+        }],
+        "fanin": [{
+            "id": 80,
+            "polarity": true,
+            "dep": false
+        }],
+        "$name": "k0_buffer [Local/LogicalNet]:1/1",
+        "$ast": "Local",
+        "$sweepable": true,
+        "$loc": {
+            "filename": "causal2.hh.mjs",
+            "pos": 98
+        }
+    }, {
+        "id": 83,
+        "lvl": 0,
+        "type": "OR",
+        "fanout": [],
+        "fanin": [{
+            "id": 81,
+            "polarity": true,
+            "dep": false
+        }, {
+            "id": 82,
+            "polarity": true,
+            "dep": false
+        }],
+        "$name": "global_k0 [Module/LogicalNet]:0/0",
+        "$ast": "Module",
+        "$sweepable": true,
+        "$loc": {
+            "filename": "causal2.hh.mjs",
+            "pos": 80
+        }
+    }, {
+        "id": 84,
+        "lvl": 0,
+        "type": "OR",
+        "fanout": [],
+        "fanin": [{
+            "id": 5,
+            "polarity": true,
+            "dep": false
+        }, {
+            "id": 8,
+            "polarity": true,
+            "dep": false
+        }],
+        "$name": "global_k1 [Module/LogicalNet]:0/0",
+        "$ast": "Module",
+        "$sweepable": true,
+        "$loc": {
+            "filename": "causal2.hh.mjs",
+            "pos": 80
+        }
+    }, {
+        "id": 85,
+        "lvl": 0,
+        "type": "OR",
+        "fanout": [],
+        "fanin": [{
+            "id": 0,
+            "polarity": false,
+            "dep": false
+        }],
+        "$name": "global_res_for_debug [Module/LogicalNet]:0/0",
+        "$ast": "Module",
+        "$sweepable": true,
+        "$loc": {
+            "filename": "causal2.hh.mjs",
+            "pos": 80
+        }
+    }]
+}
