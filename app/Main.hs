@@ -38,10 +38,12 @@ neg TRUE    = FALSE
 
 data Gate
   = And [Val]
+  | Action [Val] String -- non-empty list of Vals
  deriving ( Ord, Eq, Show )
 
 fvs :: Gate -> Set Var
-fvs (And xs) = S.fromList ([ v | Var v <- xs ] ++ [ v | Not v <- xs ])
+fvs (And xs)      = S.fromList ([ v | Var v <- xs ] ++ [ v | Not v <- xs ])
+fvs (Action xs _) = fvs (And xs)
 
 eval :: Map Var Bool -> Gate -> Maybe Bool
 eval mp g = gate g
@@ -51,79 +53,121 @@ eval mp g = gate g
   is b (Var x) = M.lookup x mp == Just b
   is b (Not x) = M.lookup x mp == Just (not b)
 
+  isBool TRUE  = True
+  isBool FALSE = True
+  isBool _     = False
+
   gate (And xs)
     | any (is False) xs = Just False
     | all (is True)  xs = Just True
     | otherwise         = Nothing
 
+  gate (Action xs _)
+    | all isBool xs = Just (all (is True) xs)
+    | otherwise     = Nothing
+
 -- Circuit --------------------------------------------------------------------------
 
-type Circuit = [(Var,Gate)]
+data Circuit
+  = Circuit
+  { maxVar   :: Int
+  , inputs   :: [Var]
+  , rinputs  :: [Var]
+  , netlist  :: [(Var,Gate)]
+  , routputs :: [Val]
+  , outputs  :: [Val]
+  }
+ deriving ( Eq, Ord )
 
-printC :: [Var] -> [Var] -> Circuit -> IO ()
-printC inps outs c = putStr $ unlines $
-  [ "[" ++ concat (intersperse ", " [ shV i | i <- inps ]) ++ "] -->"
-  , "(" ++ show (length c) ++ " gates)"
+printC :: Circuit -> IO ()
+printC c = putStr $ unlines $
+  [ "[" ++ concat (intersperse ", " [ shV i | i <- inputs c ]) ++ "]"
+  , "{" ++ concat (intersperse ", " [ shV i | i <- rinputs c ]) ++ "} -->"
+  , "(" ++ show (length (netlist c)) ++ " gates)"
   ]
   ++
-  defs (S.fromList inps) c
+  defs (S.fromList (inputs c)) (netlist c)
   ++
-  [ "--> [" ++ concat (intersperse ", " [ shV i | i <- outs ]) ++ "]"
+  [ "--> {" ++ concat (intersperse ", " [ showV (const True) x | x <- routputs c ]) ++ "}"
+  , "    [" ++ concat (intersperse ", " [ showV (const True) x | x <- outputs c ]) ++ "]"
   ]
  where
   shV x = "v" ++ show x
  
-  showV seen (Var x) = (if x `S.member` seen then id else mark) (shV x)
+  showV seen (Var x) = (if seen x then id else mark) (shV x)
   showV seen (Not x) = "~" ++ showV seen (Var x)
   showV _    FALSE   = "FALSE"
   showV _    TRUE    = "TRUE"
   
-  showG seen (And []) = "TRUE"
-  showG seen (And xs) = concat (intersperse " & " (map (showV seen) xs))
+  showG seen (And [])      = "TRUE"
+  showG seen (And xs)      = concat (intersperse " & " (map (showV seen) xs))
+  showG seen (Action xs a) = a ++ " <== " ++ showG seen (And xs)
 
   defs seen [] = []
   defs seen ((x,g):c) =
-    (shV x ++ " = " ++ showG seen g ++ ";")
+    (shV x ++ " = " ++ showG (`S.member` seen) g ++ ";")
     : defs (S.insert x seen) c
 
   mark s = "\027[4m" ++ s ++ "\027[0m"
 
-draw :: FilePath -> [Var] -> [Var] -> Circuit -> IO ()
-draw name inps outs c =
+draw :: FilePath -> Circuit -> IO ()
+draw name c =
   do writeFile (name ++ ".dot") $ unlines $
        [ "digraph circuit {"
        ] ++
        -- inputs
        [ "node[color=pink,style=filled]"
        ] ++
-       [ show x ++ " [label=" ++ show ("in:" ++ show x) ++ "];"
-       | x <- inps
+       [ show i ++ " [label=" ++ show ("in:" ++ show i) ++ "];"
+       | i <- inputs c
        ] ++
        -- outputs
        [ "node[color=lightblue,style=filled]"
        ] ++
-       [ show x ++ " [label=" ++ show ("out:" ++ show x) ++ "];"
-       | x <- outs
+       [ "o" ++ show i ++ " [label=" ++ show ("out#" ++ show i) ++ "];"
+       | (i,_) <- [1..] `zip` outputs c
+       ] ++
+       -- registers
+       [ "node[color=yellow,shape=box,style=filled]"
+       ] ++
+       [ show i ++ " [label=" ++ show ("REG:" ++ show i) ++ "];"
+       | (i,_) <- rinputs c `zip` routputs c
        ] ++
        -- gates
        [ "node[color=black,shape=box,style=" ++ show "" ++ "]"
        ] ++
-       [ case y of
-           TRUE  -> ""
-           FALSE -> "FALSE -> " ++ show x
-           Var v -> show v ++ " -> " ++ show x
-           Not v -> show v ++ " -> " ++ show x ++ " [arrowhead=dot]"
-       | (x, And ys) <- c
+       [ arrowV y (show x)
+       | (x, And ys) <- netlist c
        , y <- ys
+       ] ++
+       [ show x ++ " [color=green,style=filled,label=" ++ show a ++ "];"
+       | (x, Action _ a) <- netlist c
+       ] ++
+       [ arrowV y (show x)
+       | (x, Action ys _) <- netlist c
+       , y <- ys
+       ] ++
+       -- linking outputs
+       [ arrowV x ("o" ++ show i)
+       | (i,x) <- [1..] `zip` outputs c
+       ] ++
+       -- linking registers
+       [ arrowV x (show i)
+       | (i,x) <- rinputs c `zip` routputs c
        ] ++
        [ "}"
        ]
      system ("dot -Tpdf -O " ++ show (name ++ ".dot"))
      return ()
+ where
+  arrowV TRUE    n = "FALSE -> " ++ n ++ " [arrowhead=dot]"
+  arrowV FALSE   n = "FALSE -> " ++ n
+  arrowV (Var v) n = show v ++ " -> " ++ n
+  arrowV (Not v) n = show v ++ " -> " ++ n ++ " [arrowhead=dot]"
 
 -- parse -----------------------------------------------------------------------
 
-parse :: FilePath -> IO ([Var],[Var],Circuit)
+parse :: FilePath -> IO Circuit
 parse file =
   do s <- B.readFile file
      return $
@@ -133,40 +177,54 @@ parse file =
 
          Just (Object d) ->
            case KM.lookup (K.fromString "nets") d of
-             Just (Array nets) -> circuit [] [] [] (V.toList nets)
+             Just (Array nets) -> circuit (Circuit 0 [] [] [] [] []) (V.toList nets)
  where
-  circuit inps outs gates [] =
-    (inps, outs, [(-x, And [Not x]) | (x,_) <- gates, x<0 || (-x) `elem` outs]
-                ++ gates)
+  circuit c [] =
+    c{ maxVar  = maxV c
+     , netlist = [ (-x, And [Not x])
+                 | (x,_) <- netlist c
+                 , x<0
+                 ]
+                 ++ netlist c
+     }
 
-  circuit inps outs gates (Object net:nets) =
+  circuit c (Object net:nets) =
     case typ of
       "AND" ->
-        circuit inps outs ((idf, And args):gates) nets
+        circuit c{ netlist = (idf, And args):netlist c } nets
 
       "OR" ->
-        circuit inps outs ((-idf, And (map neg args)):gates) nets
+        circuit c{ netlist = (-idf, And (map neg args)):netlist c } nets
 
       "FALSE" ->
-        circuit inps outs ((idf, And [FALSE]):gates) nets
+        circuit c{ netlist = (idf, And [FALSE]):netlist c } nets
+
+      "TRUE" ->
+        circuit c{ netlist = (idf, And []):netlist c } nets
 
       "REG" ->
         case fin of
-          [x] -> case val x of
-                   Var v -> circuit (idf:inps) (v:outs) gates nets
-                   Not v -> circuit (idf:inps) ((-v):outs) gates nets
+          [x] -> circuit c{ rinputs  = idf:rinputs c
+                          , routputs = val x : routputs c
+                          } nets
 
       "SIG" ->
         if null fin
-          then circuit (idf:inps) outs gates nets
-          else circuit (inps) (idf:outs) ((idf,And args):gates) nets
+          then circuit c{ inputs  = idf:inputs c } nets
+          else circuit c{ outputs = Var idf:outputs c
+                        , netlist = (idf,And args) : netlist c
+                        } nets
           
       "SIGACTION" ->
         case fin of
-          [x] -> circuit inps outs ((idf,And [val x]):gates) nets
+          [x] -> circuit c{ outputs = Var idf:outputs c
+                          , netlist = (idf,Action [val x] ("SGA:" ++ show idf)):netlist c
+                          } nets
 
       "ACTION" ->
-        circuit inps outs ((idf, And args):gates) nets -- don't know if this makes sense!
+        circuit c{ outputs = Var idf:outputs c
+                 , netlist = (idf,Action args ("ACT:" ++ show idf)):netlist c
+                 } nets
 
       t -> error ("type " ++ show t)
    where
@@ -186,10 +244,13 @@ parse file =
   bool (Bool b)    = b
 
   val o = (if bool (o ~> "polarity") then Var else Not) (num (o ~> "id"))
-    
+
+maxV :: Circuit -> Int
+maxV c = maximum (1 : inputs c ++ [ abs i | (i,_) <- netlist c ])
+
 -- three-valued simulation
-sim3 :: Circuit -> Map Var Bool
-sim3 c = loop M.empty c
+sim3 :: Map Var Bool -> Circuit -> Map Var Bool
+sim3 mp c = loop mp (netlist c)
  where
   loop mp c
     | mp == mp' = mp
@@ -206,10 +267,18 @@ sim3 c = loop M.empty c
         mp' = M.insert x b mp
 
 -- reorder so that definitions come before uses (if possible), and remove unused definitions
-order :: [Var] -> Circuit -> Circuit
-order outs c = fst (go S.empty S.empty outs)
+order :: Circuit -> Circuit
+order c = c{ netlist = fst (go S.empty S.empty roots) }
  where
-  def = M.fromList c
+  roots = [ i
+          | x <- outputs c ++ routputs c
+          , i <- case x of
+                   Var i -> [i]
+                   Not i -> [i]
+                   _     -> []
+          ]
+ 
+  def = M.fromList (netlist c)
 
   go busy seen [] = ([], seen)
   go busy seen (x:xs)
@@ -223,27 +292,26 @@ order outs c = fst (go S.empty S.empty outs)
           (ds1, seen1) = go (S.insert x busy) seen (S.toList (fvs g))
           (ds2, seen2) = go busy (S.insert x seen1) xs
 
--- simplify a circuit by repeatedly doing constant propagation and garbage collection
-simp' :: Int -> [Var] -> Circuit -> Circuit
-simp' 0 _ _ = error "simp loops"
-simp' k outs c
-  | modOut c == modOut c' = c
-  | otherwise             = simp' (k-1) outs c'
- where
-  c' = order outs . cse . bite . prop $ c
 
-  modOut c = [ (x,g) | (x,g) <- c, case g of
-                                     And []  -> x `notElem` outs
-                                     And [_] -> x `notElem` outs
-                                     _       -> True ]
+-- simplify a circuit by repeatedly doing constant propagation and garbage collection
+simp' :: Int -> Circuit -> Circuit
+simp' 0 _     = error "simp loops"
+simp' k c
+  | c == c'   = c
+  | otherwise = simp' (k-1) c'
+ where
+  c' = order . cse . bite . prop $ c
 
 simp = simp' 999
 
 -- perform constant propagation
 prop :: Circuit -> Circuit
-prop c = [ (x, pr g) | (x,g) <- c ]
+prop c = c{ netlist  = [ (x, pr g) | (x,g) <- netlist c ]
+          , routputs = map look (routputs c)
+          , outputs  = map look (outputs c)
+          }
  where
-  vmp = M.fromList c
+  vmp = M.fromList (netlist c)
 
   pr (And ys)
     | isFalse ys' = And [FALSE]
@@ -266,18 +334,20 @@ prop c = [ (x, pr g) | (x,g) <- c ]
     look (Not x) = neg (look (Var x))
     look a       = a
 
--- x = a & b  -->  x = a
--- a = b & c       a = b & c
+  pr (Action ys a) = Action (map look ys) a
 
--- x = a & b  -->  x = FALSE
--- a = ~b & c      a = ~b & c
+  look (Var x) =
+    case M.lookup x vmp of
+      Just (And [])               -> TRUE
+      Just (And [y]) | y /= Not x -> y
+      _                           -> Var x
 
--- x = ~a & b  -->  x = ~(b & c) & b = (~b \/ ~c) & b = ~c & b
--- a = b & c        a = b & c
+  look (Not x) = neg (look (Var x))
+  look a       = a
 
 -- take bites out of gate input lists
 bite :: Circuit -> Circuit
-bite c = go M.empty c
+bite c = c{ netlist = go M.empty (netlist c) }
  where
   go mp [] = []
   go mp ((x, And ys):c) =
@@ -295,30 +365,34 @@ bite c = go M.empty c
              Just s  -> filter (not . (`S.member` s))
              Nothing -> id
     bt ys (x:xs)     = bt (x:ys) xs
+  go mp ((x,g):c) = (x,g):go mp c
 
 -- common subexpression elimination
 cse :: Circuit -> Circuit
-cse c = [ case M.lookup g gmp of
-            Just x' | x' /= x -> (x, And [Var x'])
-            _                 -> (x, g)
-        | (x,g) <- c'
-        ]
+cse c = c{ netlist = [ case M.lookup g gmp of
+                         Just x' | x' /= x -> (x, And [Var x'])
+                         _                 -> (x, g)
+                     | (x,g) <- c'
+                     ] }
  where
-  c'  = [ (x, And (nub (sort ys))) | (x,And ys) <- c ]
+  c'  = [ (x, case g of
+                And ys -> And (nub (sort ys))
+                _      -> g)
+        | (x,g) <- netlist c
+        ]
   gmp = M.fromList [ (And ys, x) | (x, And (ys@(_:_:_))) <- c' ]
 
 -- Combinational Loops ---------------------------------------------------------------
 
 -- find and remove one combinational loop
 dloop :: Circuit -> Circuit
-dloop c =
-  case find S.empty c of
-    Nothing -> c
-    Just y  -> expand y c
+dloop c0 =
+  case find S.empty (netlist c0) of
+    Nothing -> c0
+    Just y  -> c' 
+     where
+      c' = c0{ maxVar = maxV c', netlist = expand y (netlist c0) }
  where
-  -- what variables are in use in the circuit
-  ys = S.fromList ([ y | (x,g) <- c, y <- x : S.toList (fvs g) ])
-
   -- find the first variable that is defined *after* its first use
   find used [] =
     Nothing
@@ -349,84 +423,63 @@ dloop c =
     (_,g):c2 = dropWhile ((/=y).fst) c
     zs       = S.fromList (y : [ z | (z,_) <- c1 ])
 
-    prmap = M.fromList (primes (S.toList zs) ys)
-     where
-      primes []     ys = []
-      primes (z:zs) ys = (z,z') : primes zs (S.insert z' ys)
-       where
-        z':_ = [ z' | z' <- [z..], not (z' `S.member` ys) ]
+    prmap = M.fromList ((S.toList zs) `zip` [maxVar c0 + 1 .. ])
 
     pr x = case M.lookup x prmap of
              Nothing -> x
              Just x' -> x'
 
-    prgate (And xs) = And (map prval xs)
+    prgate (And xs)      = And (map prval xs)
+    prgate (Action xs a) = Action (map prval xs) a
 
     prval (Var x) = Var (pr x)
     prval (Not x) = Not (pr x)
     prval v       = v
 
 -- find and remove combinational loops, and simplify, until all are gone
-dloops :: [Var] -> Circuit -> Circuit
-dloops outs c
+dloops :: Circuit -> Circuit
+dloops c
   | c == c'   = c
-  | otherwise = dloops outs c'
+  | otherwise = dloops c'
  where
-  c' = simp outs (dloop c)
+  c' = simp (dloop c)
 
 -- dloops, but with nice output
-dloopsIO :: [Var] -> [Var] -> Circuit -> IO Circuit
-dloopsIO inps outs c
-  | c == c' =
-    do draw "final" inps outs c
+dloopsIO :: Circuit -> IO Circuit
+dloopsIO c
+  | c == cX =
+    do draw "final" c
        return c
 
   | otherwise =
     do putStrLn "==EXPAND-LOOP==>"
-       printC inps outs c'
+       printC cX
        putStrLn "==SIMPLIFY==>"
-       let c2 = simp outs c'
-       printC inps outs c2
-       dloopsIO inps outs c2
+       let cS = simp cX
+       printC cS
+       dloopsIO cS
  where
-  c' = dloop c
+  cX = dloop c
 
 -- main ------------------------------------------------------------------------
 
-fg :: Circuit
-fg = [ (11, And [Not 10])
-     , (21, And [Var 20, Var 3])
-     ]
-     ++ iff 10 (Var 2) (Var 1)  (Var 21) 100
-     ++ iff 20 (Var 2) (Var 11) (Var 1)  200
-     ++ iff  4 (Var 2) (Var 21) (Var 11) 300
- where
-  iff s c a b k =
-    [ (s, And [Not k, Not (k+1)])
-    , (k, And [c,a])
-    , (k+1, And [neg c, b])
-    ]
-
-ins = [1,2,3]
-ots = [4]
-
 main =
-  do --(ins,ots,c) <- parse "hiphop/emit-if2/emit-if2.net.json"
-     --(ins,ots,c) <- parse "hiphop/abro/abro.net.json"
-     --(ins,ots,c) <- parse "hiphop/causal2/causal2.net.json"
-     (ins,ots,c) <- parse "hiphop/p15/p15.net.json"
-     draw "init" ins ots c
-     printC ins ots c
-     putStrLn "==SORT==>"
-     let c' = order ots c
-     printC ins ots c'
+  do --c <- parse "hiphop/emit-if2/emit-if2.net.json"
+     --c <- parse "hiphop/abro/abro.net.json"
+     c <- parse "hiphop/causal2/causal2-.net.json"
+     --c <- parse "hiphop/p15/p15.net.json"
+     --c <- parse "hiphop/p13/p13.net.json"
+     draw "original" c
+     printC c
+     putStrLn "==ORDER==>"
+     let cO = order c
+     printC cO
      putStrLn "==SIMP==>"
-     let c2 = simp ots c'
-     printC ins ots c2
-     dloopsIO ins ots c2
+     let cS = simp cO
+     printC cS
+     draw "simplified" cS
+     dloopsIO cS
      return ()
-
-main2 = quickCheckWith stdArgs{ maxSuccess = 999999 } prop_Correct
 
 -- aux ------------------------------------------------------------------------
 
@@ -435,6 +488,9 @@ mhead []    = Nothing
 mhead (x:_) = Just x
 
 -- prop -----------------------------------------------------------------------
+
+{-
+main2 = quickCheckWith stdArgs{ maxSuccess = 999999 } prop_Correct
 
 data Circ
   = Circ
@@ -498,3 +554,4 @@ prop_Correct circ =
                  print outs2
                  draw "final" (inps circ) (outs circ) (netl circ)
             ) $ [ (x,Just b) | (x,b) <- outs1 ] == outs2
+-}
